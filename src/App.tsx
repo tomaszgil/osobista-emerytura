@@ -1,38 +1,25 @@
-import * as React from "react"
-import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-} from "@chakra-ui/react"
-import { ColorModeSwitcher } from "./ColorModeSwitcher"
-import { Logo } from "./Logo"
+import * as React from 'react'
+import { ChakraProvider } from '@chakra-ui/react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import HomeScreen from './screens/Home'
+import NotFoundScreen from './screens/NotFound'
+import PlanScreen from './screens/Plan'
+import theme from './styles/theme'
 
-export const App = () => (
+export const App: React.FC = () => (
   <ChakraProvider theme={theme}>
-    <Box textAlign="center" fontSize="xl">
-      <Grid minH="100vh" p={3}>
-        <ColorModeSwitcher justifySelf="flex-end" />
-        <VStack spacing={8}>
-          <Logo h="40vmin" pointerEvents="none" />
-          <Text>
-            Edit <Code fontSize="xl">src/App.tsx</Code> and save to reload.
-          </Text>
-          <Link
-            color="teal.500"
-            href="https://chakra-ui.com"
-            fontSize="2xl"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn Chakra
-          </Link>
-        </VStack>
-      </Grid>
-    </Box>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <HomeScreen />
+        </Route>
+        <Route path="/plan">
+          <PlanScreen />
+        </Route>
+        <Route>
+          <NotFoundScreen />
+        </Route>
+      </Switch>
+    </Router>
   </ChakraProvider>
 )
