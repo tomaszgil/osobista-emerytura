@@ -2,6 +2,7 @@ import { extendTheme } from '@chakra-ui/react'
 import Button from './button'
 import Link from './link'
 import Heading from './heading'
+import Input from './input'
 
 const colors = {
   brand: {
@@ -29,6 +30,7 @@ const theme = extendTheme({
     Button,
     Link,
     Heading,
+    Input,
   },
 })
 
