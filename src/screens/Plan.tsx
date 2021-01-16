@@ -46,7 +46,7 @@ const FormStep: React.FC<{
   </Box>
 )
 
-function validateAge(value?: number): string | undefined {
+function validateAge(value: number | ''): string | undefined {
   if (!value) {
     return 'Pole wymagane'
   } else if (value < 18 || value > 100) {
@@ -55,7 +55,7 @@ function validateAge(value?: number): string | undefined {
 }
 
 function validateRetirementAge(
-  value?: number,
+  value: number | '',
   values?: { age?: number }
 ): string | undefined {
   const genericError = validateAge(value)
@@ -276,10 +276,10 @@ const ReturnOnInvestmentStep: React.FC<{ active: boolean }> = ({ active }) => {
 }
 
 type FormValues = {
-  age?: number
-  retirementAge?: number
-  monthlyRetirement?: number
-  returnOnInvestment?: string
+  age: number | ''
+  retirementAge: number | ''
+  monthlyRetirement: number | ''
+  returnOnInvestment: string
 }
 
 const PlanScreen: React.FC = () => {
@@ -303,9 +303,9 @@ const PlanScreen: React.FC = () => {
           <Box flex="2">
             <Formik<FormValues>
               initialValues={{
-                age: undefined,
-                retirementAge: undefined,
-                monthlyRetirement: undefined,
+                age: '',
+                retirementAge: '',
+                monthlyRetirement: '',
                 returnOnInvestment: '3',
               }}
               validate={(values) => {
