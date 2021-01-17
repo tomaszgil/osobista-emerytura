@@ -6,73 +6,23 @@ import {
   Box,
   Heading,
   Button,
-  Container,
-  Text,
   Input,
-  Flex,
-  Collapse,
   FormControl,
   Center,
   FormErrorMessage,
-  chakra,
-  // eslint-disable-next-line
-  UseRadioProps,
   useRadioGroup,
-  useRadio,
 } from '@chakra-ui/react'
-import { CheckIcon } from '@chakra-ui/icons'
 import { Formik, Field, Form, useFormikContext } from 'formik'
+import FormStep from '../components/FormStep'
+import RadioTile from '../components/RadioTile'
 import bank from '../assets/bank.svg'
 import news from '../assets/news.svg'
 import stock from '../assets/stock.svg'
-
-const FormStep: React.FC<{
-  active: boolean
-  title: string
-  explanation: string
-}> = ({ active, title, explanation, children }) => (
-  <Box m={-1}>
-    <Collapse in={active} key={title}>
-      <Box p={1}>
-        <Container maxW="2xl" textAlign="center">
-          <Heading fontSize="4xl" mb={4}>
-            {title}
-          </Heading>
-          <Text mb={8}>{explanation}</Text>
-        </Container>
-        <Center>{children}</Center>
-      </Box>
-    </Collapse>
-  </Box>
-)
-
-function validateAge(value: number | ''): string | undefined {
-  if (!value) {
-    return 'Pole wymagane'
-  } else if (value < 18 || value > 100) {
-    return 'Wartość powinna być z przedziału 18 - 100'
-  }
-}
-
-function validateRetirementAge(
-  value: number | '',
-  values?: { age?: number }
-): string | undefined {
-  const genericError = validateAge(value)
-  if (genericError) {
-    return genericError
-  }
-
-  if (value && values && values.age && value <= values.age) {
-    return 'Wiek emerytalny musi być większy od aktualnego wieku'
-  }
-}
-
-function validateMonthlyRetirement(value?: number): string | undefined {
-  if (!value) {
-    return 'Pole wymagane'
-  }
-}
+import {
+  validateAge,
+  validateRetirementAge,
+  validateMonthlyRetirement,
+} from '../utils/validation'
 
 const AgeStep: React.FC<{ active: boolean }> = ({ active }) => (
   <FormStep
@@ -144,87 +94,6 @@ const MonthlyRetirementStep: React.FC<{ active: boolean }> = ({ active }) => {
   )
 }
 
-const CheckIconBox: React.FC<{ checked: boolean }> = ({ checked }) => (
-  <Flex
-    border="2px"
-    borderColor="brand.700"
-    borderRadius="50%"
-    alignItems="center"
-    justifyContent="center"
-    width="1.5rem"
-    height="1.5rem"
-    {...(checked && {
-      // Cannot import brand.700 here
-      boxShadow: '0 0 0 1px #8758FA',
-      bg: 'brand.700',
-    })}
-  >
-    <CheckIcon
-      color="white"
-      transition="0.2s all ease"
-      transform="scale(0)"
-      {...(checked && {
-        transform: 'scale(1)',
-      })}
-    />
-  </Flex>
-)
-
-const RadioTile: React.FC<{ title: string; icon: string } & UseRadioProps> = ({
-  title,
-  icon,
-  value,
-  isChecked,
-  ...props
-}) => {
-  const { getInputProps, getCheckboxProps } = useRadio({
-    value,
-    isChecked,
-    ...props,
-  })
-
-  const input = getInputProps()
-  const checkbox = getCheckboxProps()
-
-  return (
-    <Box as="label" flex="1">
-      <input {...input} />
-
-      <Box
-        {...checkbox}
-        p={4}
-        pb={6}
-        cursor="pointer"
-        borderRadius="base"
-        border="1px"
-        borderColor="gray.200"
-        transition="all 0.2s ease"
-        _checked={{
-          borderColor: 'brand.700',
-          // Cannot import brand.700 here
-          boxShadow: '0 0 0 1px #8758FA',
-        }}
-        _focus={{
-          boxShadow: 'outline',
-        }}
-      >
-        <Box textAlign="center">
-          <Box textAlign="left">
-            <CheckIconBox checked={!!isChecked} />
-          </Box>
-          <Center mb={4}>
-            <chakra.img src={icon} height="4rem"></chakra.img>
-          </Center>
-          <Heading fontSize="1.125em" mb={2}>
-            {title}
-          </Heading>
-          <Text>Przewidywana stopa zwrotu z inwestycji: {value}%</Text>
-        </Box>
-      </Box>
-    </Box>
-  )
-}
-
 const ReturnOnInvestmentStep: React.FC<{ active: boolean }> = ({ active }) => {
   const options = [
     {
@@ -275,12 +144,51 @@ const ReturnOnInvestmentStep: React.FC<{ active: boolean }> = ({ active }) => {
   )
 }
 
-type FormValues = {
-  age: number | ''
-  retirementAge: number | ''
-  monthlyRetirement: number | ''
-  returnOnInvestment: string
+type FormStepSchema = {
+  name: string
+  validation?: Function
+  component: React.FC<{ active: boolean }>
 }
+
+const steps: FormStepSchema[] = [
+  {
+    name: 'age',
+    validation: validateAge,
+    component: AgeStep,
+  },
+  {
+    name: 'retirementAge',
+    validation: validateRetirementAge,
+    component: RetirementAgeStep,
+  },
+  {
+    name: 'monthlyRetirement',
+    validation: validateMonthlyRetirement,
+    component: MonthlyRetirementStep,
+  },
+  {
+    name: 'returnOnInvestment',
+    component: ReturnOnInvestmentStep,
+  },
+]
+
+function createStepValidator(steps: FormStepSchema[]) {
+  return function (values: PlanFormValues, step: number) {
+    let errors = {}
+    const stepsToVerify = steps.slice(0, step + 1)
+    stepsToVerify.forEach(({ name, validation }: FormStepSchema) => {
+      if (validation) {
+        const error = validation(values)
+        if (error) {
+          errors = { ...errors, [name]: error }
+        }
+      }
+    })
+    return errors
+  }
+}
+
+const stepValidation = createStepValidator(steps)
 
 const PlanScreen: React.FC = () => {
   const [step, setStep] = React.useState(0)
@@ -301,7 +209,7 @@ const PlanScreen: React.FC = () => {
             <Heading fontSize="2xl">Plan oszczędzania</Heading>
           </Box>
           <Box flex="2">
-            <Formik<FormValues>
+            <Formik<PlanFormValues>
               initialValues={{
                 age: '',
                 retirementAge: '',
@@ -309,32 +217,7 @@ const PlanScreen: React.FC = () => {
                 returnOnInvestment: '3',
               }}
               validate={(values) => {
-                let errors = {}
-                if (step >= 0) {
-                  const error = validateAge(values.age)
-                  if (error) {
-                    errors = { ...errors, age: error }
-                  }
-                }
-                if (step >= 1) {
-                  const error = validateRetirementAge(
-                    values.retirementAge,
-                    values
-                  )
-                  if (error) {
-                    errors = { ...errors, retirementAge: error }
-                  }
-                }
-                if (step >= 2) {
-                  const error = validateMonthlyRetirement(
-                    values.monthlyRetirement
-                  )
-                  if (error) {
-                    errors = { ...errors, monthlyRetirement: error }
-                  }
-                }
-
-                return errors
+                return stepValidation(values, step)
               }}
               validateOnChange={false}
               onSubmit={(...args: any[]) => {
@@ -347,13 +230,16 @@ const PlanScreen: React.FC = () => {
             >
               {() => (
                 <Form>
-                  <AgeStep active={step === 0} />
-                  <RetirementAgeStep active={step === 1} />
-                  <MonthlyRetirementStep active={step === 2} />
-                  <ReturnOnInvestmentStep active={step === 3} />
+                  {steps.map(
+                    ({ name, component: Component }: FormStepSchema, index) => (
+                      <Component key={name} active={step === index} />
+                    )
+                  )}
                   <Center mt={8}>
                     <Button size="lg" type="submit">
-                      {step === 3 ? 'Wygeneruj plan' : 'Następny krok'}
+                      {step === steps.length - 1
+                        ? 'Wygeneruj plan'
+                        : 'Następny krok'}
                     </Button>
                   </Center>
                 </Form>

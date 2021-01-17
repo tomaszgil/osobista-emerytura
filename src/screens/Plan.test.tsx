@@ -11,7 +11,7 @@ const step4Heading = 'Jak chcesz pomnażać swoje oszczędności?'
 
 jest.setTimeout(10000)
 
-test('allows user to fullfil the form with validation for each', async () => {
+test('allows user to fullfil the form with validation for each step', async () => {
   act(() => {
     render(<Plan />)
   })
