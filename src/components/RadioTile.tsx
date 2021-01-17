@@ -8,6 +8,7 @@ import {
   // eslint-disable-next-line
   UseRadioProps,
   useRadio,
+  useTheme,
 } from '@chakra-ui/react'
 import CheckIconBox from './CheckIconBox'
 
@@ -18,6 +19,9 @@ const RadioTile: React.FC<{ title: string; icon: string } & UseRadioProps> = ({
   isChecked,
   ...props
 }) => {
+  const theme = useTheme()
+  const brand700 = theme.colors.brand[700]
+
   const { getInputProps, getCheckboxProps } = useRadio({
     value,
     isChecked,
@@ -43,7 +47,7 @@ const RadioTile: React.FC<{ title: string; icon: string } & UseRadioProps> = ({
         _checked={{
           borderColor: 'brand.700',
           // Cannot import brand.700 here
-          boxShadow: '0 0 0 1px #8758FA',
+          boxShadow: `0 0 0 1px ${brand700}`,
         }}
         _focus={{
           boxShadow: 'outline',

@@ -12,7 +12,14 @@ import {
   FormErrorMessage,
   useRadioGroup,
 } from '@chakra-ui/react'
-import { Formik, Field, Form, useFormikContext } from 'formik'
+import {
+  Formik,
+  Field,
+  Form,
+  FieldInputProps,
+  FormikProps,
+  useFormikContext,
+} from 'formik'
 import FormStep from '../components/FormStep'
 import RadioTile from '../components/RadioTile'
 import bank from '../assets/bank.svg'
@@ -31,9 +38,15 @@ const AgeStep: React.FC<{ active: boolean }> = ({ active }) => (
     explanation="Potrzebujemy tej informacji, żeby obliczyć ile lat będziesz odkładać na emeryturę. Zakładamy, że zaczynasz odkładać już teraz. Wszystkie dane będziesz mógł dostosować później."
   >
     <Field name="age" type="number">
-      {({ field, form }: { field: any; form: any }) => (
+      {({
+        field,
+        form,
+      }: {
+        field: FieldInputProps<''>
+        form: FormikProps<PlanFormValues>
+      }) => (
         <FormControl
-          isInvalid={form.errors.age && form.touched.age}
+          isInvalid={!!(form.errors.age && form.touched.age)}
           maxWidth="sm"
         >
           <Input {...field} size="lg" placeholder="Wiek" />
@@ -52,9 +65,17 @@ const RetirementAgeStep: React.FC<{ active: boolean }> = ({ active }) => {
       explanation="Standardowym momentem przejcia na emeryturę dla kobiet jest 60 lat, a dla mężczyzn 65. Możesz przeprowadzić symulację dla dowolnego wieku."
     >
       <Field name="retirementAge" type="number">
-        {({ field, form }: { field: any; form: any }) => (
+        {({
+          field,
+          form,
+        }: {
+          field: FieldInputProps<''>
+          form: FormikProps<PlanFormValues>
+        }) => (
           <FormControl
-            isInvalid={form.errors.retirementAge && form.touched.retirementAge}
+            isInvalid={
+              !!(form.errors.retirementAge && form.touched.retirementAge)
+            }
             maxWidth="sm"
           >
             <Input {...field} size="lg" placeholder="Wiek emerytalny" />
@@ -74,10 +95,18 @@ const MonthlyRetirementStep: React.FC<{ active: boolean }> = ({ active }) => {
       explanation="Zdefiniuj wysokość swojej miesięcznej emerytury w złotówkach."
     >
       <Field name="monthlyRetirement" type="number">
-        {({ field, form }: { field: any; form: any }) => (
+        {({
+          field,
+          form,
+        }: {
+          field: FieldInputProps<''>
+          form: FormikProps<PlanFormValues>
+        }) => (
           <FormControl
             isInvalid={
-              form.errors.monthlyRetirement && form.touched.monthlyRetirement
+              !!(
+                form.errors.monthlyRetirement && form.touched.monthlyRetirement
+              )
             }
             maxWidth="sm"
           >
