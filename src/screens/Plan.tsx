@@ -3,7 +3,9 @@ import PageContainer from '../components/PageContainer'
 import Header from '../components/Header'
 import {
   HStack,
+  Text,
   Box,
+  Flex,
   Heading,
   Button,
   Input,
@@ -24,6 +26,7 @@ import {
 } from 'formik'
 import FormStep from '../components/FormStep'
 import RadioTile from '../components/RadioTile'
+import CheckIconBox from '../components/CheckIconBox'
 import bank from '../assets/bank.svg'
 import news from '../assets/news.svg'
 import stock from '../assets/stock.svg'
@@ -33,10 +36,13 @@ import {
   validateMonthlyRetirement,
 } from '../utils/validation'
 
-const AgeStep: React.FC<{ active: boolean }> = ({ active }) => (
+const AgeStep: React.FC<{ active: boolean; title: string }> = ({
+  active,
+  title,
+}) => (
   <FormStep
     active={active}
-    title="Ile masz lat?"
+    title={title}
     explanation="Potrzebujemy tej informacji, żeby obliczyć ile lat będziesz odkładać na emeryturę. Zakładamy, że zaczynasz odkładać już teraz. Wszystkie dane będziesz mógł dostosować później."
   >
     <Field name="age" type="number">
@@ -59,11 +65,14 @@ const AgeStep: React.FC<{ active: boolean }> = ({ active }) => (
   </FormStep>
 )
 
-const RetirementAgeStep: React.FC<{ active: boolean }> = ({ active }) => {
+const RetirementAgeStep: React.FC<{ active: boolean; title: string }> = ({
+  active,
+  title,
+}) => {
   return (
     <FormStep
       active={active}
-      title="W jakim wieku chcesz przejść na emeryturę?"
+      title={title}
       explanation="Standardowym momentem przejcia na emeryturę dla kobiet jest 60 lat, a dla mężczyzn 65. Możesz przeprowadzić symulację dla dowolnego wieku."
     >
       <Field name="retirementAge" type="number">
@@ -89,11 +98,14 @@ const RetirementAgeStep: React.FC<{ active: boolean }> = ({ active }) => {
   )
 }
 
-const MonthlyRetirementStep: React.FC<{ active: boolean }> = ({ active }) => {
+const MonthlyRetirementStep: React.FC<{ active: boolean; title: string }> = ({
+  active,
+  title,
+}) => {
   return (
     <FormStep
       active={active}
-      title="Jaką chcesz mieć miesięczną emeryturę?"
+      title={title}
       explanation="Zdefiniuj wysokość swojej miesięcznej emerytury w złotówkach."
     >
       <Field name="monthlyRetirement" type="number">
@@ -125,7 +137,10 @@ const MonthlyRetirementStep: React.FC<{ active: boolean }> = ({ active }) => {
   )
 }
 
-const ReturnOnInvestmentStep: React.FC<{ active: boolean }> = ({ active }) => {
+const ReturnOnInvestmentStep: React.FC<{ active: boolean; title: string }> = ({
+  active,
+  title,
+}) => {
   const options = [
     {
       title: 'Bankowe produkty inwestycyjne',
@@ -159,7 +174,7 @@ const ReturnOnInvestmentStep: React.FC<{ active: boolean }> = ({ active }) => {
   return (
     <FormStep
       active={active}
-      title="Jak chcesz pomnażać swoje oszczędności?"
+      title={title}
       explanation="Wybierz przykładowy sposób pomnażania oszczędności, którego stopa zwrotu najlepiej odzwierciedla twoje możliwości inwestycyjne. Dokładną stopę zwrotu będziesz mógł dostosować później."
     >
       <HStack spacing={6} alignItems="stretch" {...group}>
@@ -177,28 +192,33 @@ const ReturnOnInvestmentStep: React.FC<{ active: boolean }> = ({ active }) => {
 
 type FormStepSchema = {
   name: string
+  title: string
   validation?: Function
-  component: React.FC<{ active: boolean }>
+  component: React.FC<{ active: boolean; title: string }>
 }
 
 const steps: FormStepSchema[] = [
   {
     name: 'age',
+    title: 'Ile masz lat?',
     validation: validateAge,
     component: AgeStep,
   },
   {
     name: 'retirementAge',
+    title: 'W jakim wieku chcesz przejść na emeryturę?',
     validation: validateRetirementAge,
     component: RetirementAgeStep,
   },
   {
     name: 'monthlyRetirement',
+    title: 'Jaką chcesz mieć miesięczną emeryturę?',
     validation: validateMonthlyRetirement,
     component: MonthlyRetirementStep,
   },
   {
     name: 'returnOnInvestment',
+    title: 'Jak chcesz pomnażać swoje oszczędności?',
     component: ReturnOnInvestmentStep,
   },
 ]
@@ -226,18 +246,66 @@ const PlanScreen: React.FC = () => {
 
   return (
     <>
-      <Box
-        background="purple.50"
-        position="absolute"
-        width="33%"
-        height="100vh"
-        zIndex="hide"
-      />
+      <Box position="absolute" height="100vh" width="100%" zIndex="hide">
+        <Box
+          position="absolute"
+          background="purple.50"
+          width="50%"
+          height="100%"
+        />
+        <PageContainer>
+          <Box position="relative" width="100%">
+            <Box
+              position="absolute"
+              background="purple.50"
+              width="33%"
+              height="100vh"
+              zIndex="1"
+            />
+            <Box
+              position="absolute"
+              width="100%"
+              height="100vh"
+              bg="white"
+            ></Box>
+          </Box>
+        </PageContainer>
+      </Box>
       <Header />
       <PageContainer>
         <HStack spacing={8} mt={16} alignItems="flex-start">
           <Box flex="1">
-            <Heading fontSize="2xl">Plan oszczędzania</Heading>
+            <Heading fontSize="2xl" mb={12}>
+              Plan oszczędzania
+            </Heading>
+            {steps.map(({ name, title }: FormStepSchema, index) => {
+              const active = step >= index
+              const checked = step > index
+              return (
+                <Flex
+                  as="button"
+                  textAlign="left"
+                  disabled={!active}
+                  key={name}
+                  mb={8}
+                  onClick={() => setStep(index)}
+                >
+                  <Box>
+                    <CheckIconBox checked={checked} />
+                  </Box>
+                  <Text
+                    as="span"
+                    fontWeight="bold"
+                    fontSize="1.125em"
+                    ml={4}
+                    opacity={active ? 1 : 0.4}
+                    transition="0.2 all ease"
+                  >
+                    {title}
+                  </Text>
+                </Flex>
+              )
+            })}
           </Box>
           <Box flex="2">
             <Formik<PlanFormValues>
@@ -252,9 +320,8 @@ const PlanScreen: React.FC = () => {
               }}
               validateOnChange={false}
               onSubmit={(...args: any[]) => {
-                if (step < 3) {
-                  setStep(step + 1)
-                } else {
+                setStep(step + 1)
+                if (step === steps.length - 1) {
                   console.log('submit', ...args)
                 }
               }}
@@ -262,8 +329,15 @@ const PlanScreen: React.FC = () => {
               {() => (
                 <Form>
                   {steps.map(
-                    ({ name, component: Component }: FormStepSchema, index) => (
-                      <Component key={name} active={step === index} />
+                    (
+                      { name, title, component: Component }: FormStepSchema,
+                      index
+                    ) => (
+                      <Component
+                        key={name}
+                        title={title}
+                        active={step === index}
+                      />
                     )
                   )}
                   <Center mt={8}>
