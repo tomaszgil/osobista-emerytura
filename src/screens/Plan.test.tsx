@@ -9,7 +9,7 @@ const step2Heading = 'W jakim wieku chcesz przejść na emeryturę?'
 const step3Heading = 'Jaką chcesz mieć miesięczną emeryturę?'
 const step4Heading = 'Jak chcesz pomnażać swoje oszczędności?'
 
-jest.setTimeout(10000)
+jest.setTimeout(20000)
 
 test('allows user to fullfil the form with validation for each step', async () => {
   act(() => {
@@ -19,10 +19,18 @@ test('allows user to fullfil the form with validation for each step', async () =
   // Step 1 - Age
   const ageInput = screen.getByPlaceholderText('Wiek')
   expect(ageInput).toBeVisible()
-  expect(screen.getByText(step1Heading)).toBeVisible()
-  expect(screen.queryByText(step2Heading)).not.toBeVisible()
-  expect(screen.queryByText(step3Heading)).not.toBeVisible()
-  expect(screen.queryByText(step4Heading)).not.toBeVisible()
+  expect(
+    screen.getByRole('heading', { name: step1Heading })
+  ).toBeInTheDocument()
+  expect(
+    screen.queryByRole('heading', { name: step2Heading })
+  ).not.toBeInTheDocument()
+  expect(
+    screen.queryByRole('heading', { name: step3Heading })
+  ).not.toBeInTheDocument()
+  expect(
+    screen.queryByRole('heading', { name: step4Heading })
+  ).not.toBeInTheDocument()
 
   // Step 1 - Required
   act(() => {
@@ -51,10 +59,18 @@ test('allows user to fullfil the form with validation for each step', async () =
   const retirementAgeInput = screen.getByPlaceholderText('Wiek emerytalny')
   await waitFor(() => expect(ageInput).not.toBeVisible())
   expect(retirementAgeInput).toBeVisible()
-  expect(screen.getByText(step1Heading)).not.toBeVisible()
-  expect(screen.queryByText(step2Heading)).toBeVisible()
-  expect(screen.queryByText(step3Heading)).not.toBeVisible()
-  expect(screen.queryByText(step4Heading)).not.toBeVisible()
+  expect(
+    screen.queryByRole('heading', { name: step1Heading })
+  ).not.toBeInTheDocument()
+  expect(
+    screen.queryByRole('heading', { name: step2Heading })
+  ).toBeInTheDocument()
+  expect(
+    screen.queryByRole('heading', { name: step3Heading })
+  ).not.toBeInTheDocument()
+  expect(
+    screen.queryByRole('heading', { name: step4Heading })
+  ).not.toBeInTheDocument()
 
   // Step 2 - Required
   act(() => {
@@ -89,10 +105,18 @@ test('allows user to fullfil the form with validation for each step', async () =
   )
   await waitFor(() => expect(retirementAgeInput).not.toBeVisible())
   expect(monthlyRetirementInput).toBeVisible()
-  expect(screen.getByText(step1Heading)).not.toBeVisible()
-  expect(screen.queryByText(step2Heading)).not.toBeVisible()
-  expect(screen.queryByText(step3Heading)).toBeVisible()
-  expect(screen.queryByText(step4Heading)).not.toBeVisible()
+  expect(
+    screen.queryByRole('heading', { name: step1Heading })
+  ).not.toBeInTheDocument()
+  expect(
+    screen.queryByRole('heading', { name: step2Heading })
+  ).not.toBeInTheDocument()
+  expect(
+    screen.queryByRole('heading', { name: step3Heading })
+  ).toBeInTheDocument()
+  expect(
+    screen.queryByRole('heading', { name: step4Heading })
+  ).not.toBeInTheDocument()
 
   // Step 3 - Required
   act(() => {
@@ -111,10 +135,18 @@ test('allows user to fullfil the form with validation for each step', async () =
 
   // Step 4 - Return on investment
   await waitFor(() => expect(monthlyRetirementInput).not.toBeVisible())
-  expect(screen.getByText(step1Heading)).not.toBeVisible()
-  expect(screen.queryByText(step2Heading)).not.toBeVisible()
-  expect(screen.queryByText(step3Heading)).not.toBeVisible()
-  expect(screen.queryByText(step4Heading)).toBeVisible()
+  expect(
+    screen.queryByRole('heading', { name: step1Heading })
+  ).not.toBeInTheDocument()
+  expect(
+    screen.queryByRole('heading', { name: step2Heading })
+  ).not.toBeInTheDocument()
+  expect(
+    screen.queryByRole('heading', { name: step3Heading })
+  ).not.toBeInTheDocument()
+  expect(
+    screen.queryByRole('heading', { name: step4Heading })
+  ).toBeInTheDocument()
 
   // Step 4 - Default values
   expect(screen.getByLabelText(/bankowe produkty inwestycyjne/i)).toBeChecked()
