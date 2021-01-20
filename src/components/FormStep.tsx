@@ -11,8 +11,8 @@ import {
 const FormStep: React.FC<{
   active: boolean
   title: string
-  explanation: string
-}> = ({ active, title, explanation, children }) => (
+  description: string
+}> = ({ active, title, description, children }) => (
   <Box m={-1}>
     <Collapse in={active} key={title}>
       <Box p={1}>
@@ -20,7 +20,7 @@ const FormStep: React.FC<{
           <Heading fontSize="4xl" mb={4}>
             {title}
           </Heading>
-          <Text mb={8}>{explanation}</Text>
+          <Text mb={8}>{description}</Text>
         </Container>
         <Center>{children}</Center>
       </Box>

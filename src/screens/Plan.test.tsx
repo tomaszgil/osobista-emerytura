@@ -9,7 +9,7 @@ const step2Heading = 'W jakim wieku chcesz przejść na emeryturę?'
 const step3Heading = 'Jaką chcesz mieć miesięczną emeryturę?'
 const step4Heading = 'Jak chcesz pomnażać swoje oszczędności?'
 
-jest.setTimeout(10000)
+jest.setTimeout(20000)
 
 test('allows user to fullfil the form with validation for each step', async () => {
   act(() => {
