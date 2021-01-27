@@ -3,6 +3,7 @@ import { render } from '../test-utils'
 import { screen, act, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Plan from './Plan'
+import calculateRetirementPlan from '../services/retirement'
 
 const step1Heading = 'Ile masz lat?'
 const step2Heading = 'W jakim wieku chcesz przejść na emeryturę?'
@@ -10,6 +11,8 @@ const step3Heading = 'Jaką chcesz mieć miesięczną emeryturę?'
 const step4Heading = 'Jak chcesz pomnażać swoje oszczędności?'
 
 jest.setTimeout(20000)
+
+jest.mock('../services/retirement', () => jest.fn())
 
 test('allows user to fullfil the form with validation for each step', async () => {
   act(() => {
@@ -158,20 +161,15 @@ test('allows user to fullfil the form with validation for each step', async () =
   ).not.toBeChecked()
 
   // Step 4 - success
-  jest.spyOn(console, 'log')
   await act(async () => {
     userEvent.click(screen.getByText('Fundusze inwestycyjne oraz obligacje'))
     userEvent.click(screen.getByRole('button', { name: 'Wygeneruj plan' }))
   })
 
-  expect(console.log).toHaveBeenCalledWith(
-    'submit',
-    {
-      age: '24',
-      retirementAge: '60',
-      monthlyRetirement: '2000',
-      returnOnInvestment: '5',
-    },
-    expect.any(Object)
-  )
+  expect(calculateRetirementPlan).toHaveBeenCalledWith({
+    age: 24,
+    retirementAge: 60,
+    monthlyRetirement: 2000,
+    returnOnInvestment: 0.05,
+  })
 })
