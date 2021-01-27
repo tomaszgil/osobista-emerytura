@@ -6,7 +6,7 @@ const PlanScreen: React.FC = () => {
   const [plan, setPlan] = React.useState<RetirementPlanValues | null>(null)
 
   if (plan) {
-    return <PlanPreview plan={plan} />
+    return <PlanPreview plan={plan} resetPlan={() => setPlan(null)} />
   }
 
   return <PlanForm setPlan={setPlan} />

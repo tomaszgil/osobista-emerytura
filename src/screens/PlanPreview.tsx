@@ -26,7 +26,22 @@ const seriesToLabel: { [key: string]: string } = {
   interest: 'Odsetki',
 }
 
-const PlanPreview: React.FC<{ plan: RetirementPlanValues }> = ({ plan }) => {
+function tickFormatter(value: number): string {
+  if (value > 10 ** 6) {
+    return `${value / 10 ** 6} mln`
+  }
+
+  if (value > 10 ** 3) {
+    return `${value / 10 ** 3} tys`
+  }
+
+  return String(value)
+}
+
+const PlanPreview: React.FC<{
+  plan: RetirementPlanValues
+  resetPlan: React.MouseEventHandler<HTMLElement>
+}> = ({ plan, resetPlan }) => {
   const theme = useTheme()
 
   return (
@@ -44,8 +59,11 @@ const PlanPreview: React.FC<{ plan: RetirementPlanValues }> = ({ plan }) => {
             </Text>
           </Box>
           <Flex flex="1" justifyContent="flex-end">
-            <Button size="lg" to="/plan">
+            <Button size="lg" mr={2} onClick={window.print}>
               Eksportuj
+            </Button>
+            <Button size="lg" variant="ghost" onClick={resetPlan}>
+              Resetuj
             </Button>
           </Flex>
         </HStack>
@@ -79,8 +97,12 @@ const PlanPreview: React.FC<{ plan: RetirementPlanValues }> = ({ plan }) => {
               <ResponsiveContainer width="100%" height={400}>
                 <BarChart data={plan.series}>
                   <CartesianGrid vertical={false} />
-                  <XAxis dataKey="year" />
-                  <YAxis />
+                  <XAxis axisLine={false} tickLine={false} dataKey="year" />
+                  <YAxis
+                    axisLine={false}
+                    tickLine={false}
+                    tickFormatter={tickFormatter}
+                  />
                   <Tooltip
                     formatter={(value: number, label: string) => [
                       formatCurrency(value),

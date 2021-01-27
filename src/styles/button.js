@@ -7,6 +7,13 @@ const Button = {
       backgroundColor: 'brand.800',
       color: 'white',
     },
+    ghost: {
+      color: 'brand.900',
+      backgroundColor: 'purple.50',
+      _hover: {
+        backgroundColor: 'purple.100',
+      },
+    },
   },
   defaultProps: {
     variant: 'primary',
