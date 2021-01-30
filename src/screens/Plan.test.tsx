@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '../test-utils'
-import { screen, act, waitFor } from '@testing-library/react'
+import { screen, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Plan from './Plan'
 import calculateRetirementPlan from '../services/retirement'
@@ -60,8 +60,8 @@ test('allows user to fullfil the form with validation for each step', async () =
 
   // Step 2 - Retirement age
   const retirementAgeInput = screen.getByPlaceholderText('Wiek emerytalny')
-  await waitFor(() => expect(ageInput).not.toBeVisible())
-  expect(retirementAgeInput).toBeVisible()
+  expect(ageInput).not.toBeInTheDocument()
+  expect(retirementAgeInput).toBeInTheDocument()
   expect(
     screen.queryByRole('heading', { name: step1Heading })
   ).not.toBeInTheDocument()
@@ -106,8 +106,8 @@ test('allows user to fullfil the form with validation for each step', async () =
   const monthlyRetirementInput = screen.getByPlaceholderText(
     'Wysokość miesięcznej emerytury'
   )
-  await waitFor(() => expect(retirementAgeInput).not.toBeVisible())
-  expect(monthlyRetirementInput).toBeVisible()
+  expect(retirementAgeInput).not.toBeInTheDocument()
+  expect(monthlyRetirementInput).toBeInTheDocument()
   expect(
     screen.queryByRole('heading', { name: step1Heading })
   ).not.toBeInTheDocument()
@@ -137,7 +137,7 @@ test('allows user to fullfil the form with validation for each step', async () =
   })
 
   // Step 4 - Return on investment
-  await waitFor(() => expect(monthlyRetirementInput).not.toBeVisible())
+  expect(monthlyRetirementInput).not.toBeInTheDocument()
   expect(
     screen.queryByRole('heading', { name: step1Heading })
   ).not.toBeInTheDocument()

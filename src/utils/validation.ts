@@ -50,3 +50,19 @@ export function validateMonthlyRetirement(
     return requiredError
   }
 }
+
+export function createStepValidator(steps: FormStepSchema[]) {
+  return function (values: PlanFormValues, step: number) {
+    let errors = {}
+    const stepsToVerify = steps.slice(0, step + 1)
+    stepsToVerify.forEach(({ name, validation }: FormStepSchema) => {
+      if (validation) {
+        const error = validation(values)
+        if (error) {
+          errors = { ...errors, [name]: error }
+        }
+      }
+    })
+    return errors
+  }
+}

@@ -12,3 +12,10 @@ type RetirementPlanValues = {
   payment: number
   series: Array<{ year: number; equity: number; interest: number }>
 }
+
+type FormStepSchema = {
+  name: string
+  title: string
+  validation?: Function
+  component: React.FC<{ title: string }>
+}
