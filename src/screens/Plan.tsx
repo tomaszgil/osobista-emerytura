@@ -1,15 +1,43 @@
 import * as React from 'react'
 import PlanPreview from './PlanPreview'
-import PlanForm from './PlanForm'
+import PlanForm, { steps } from './PlanForm'
+import useLocalStorageState from '../utils/useLocalStorageState'
+import calculateRetirmentPlan from '../services/retirement'
+
+const initialValues = {
+  age: '',
+  retirementAge: '',
+  monthlyRetirement: '',
+  returnOnInvestment: '3',
+}
 
 const PlanScreen: React.FC = () => {
-  const [plan, setPlan] = React.useState<RetirementPlanValues | null>(null)
+  const [values, setValues] = useLocalStorageState('plan:values', initialValues)
+  const [step, setStep] = useLocalStorageState('plan:step', 0)
 
-  if (plan) {
-    return <PlanPreview plan={plan} resetPlan={() => setPlan(null)} />
+  const allStepsCompleted = step === steps.length
+
+  if (allStepsCompleted) {
+    const formValues = {
+      age: Number(values.age),
+      retirementAge: Number(values.retirementAge),
+      monthlyRetirement: Number(values.monthlyRetirement),
+      returnOnInvestment: Number(values.returnOnInvestment) / 100,
+    }
+    const plan = calculateRetirmentPlan(formValues)
+
+    return (
+      <PlanPreview
+        plan={plan}
+        resetPlan={() => {
+          setStep(0)
+          setValues(initialValues)
+        }}
+      />
+    )
   }
 
-  return <PlanForm setPlan={setPlan} />
+  return <PlanForm {...{ values, setValues, step, setStep }} />
 }
 
 export default PlanScreen

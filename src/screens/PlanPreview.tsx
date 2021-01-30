@@ -67,11 +67,11 @@ const PlanPreview: React.FC<{
             </Button>
           </Flex>
         </HStack>
-        <HStack alignItems="flex-start">
-          <Box flex="1">
+        <HStack alignItems="flex-start" spacing={8}>
+          <Box flex="1" borderWidth="1px" borderRadius="lg" py={8} px={8}>
             <Heading fontSize="2xl">Ustawienia strategii</Heading>
           </Box>
-          <Box flex="2">
+          <Box flex="2" py={8}>
             <Flex mb={16}>
               <Box flex="1">
                 <Text fontSize="2xl" color="brand.900" fontWeight="bold" mb={2}>
