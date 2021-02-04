@@ -7,8 +7,10 @@ import calculateRetirmentPlan from '../services/retirement'
 const initialValues = {
   age: '',
   retirementAge: '',
+  lifeExpectancy: '80',
   monthlyRetirement: '',
   returnOnInvestment: '3',
+  currentSavings: '0',
 }
 
 const PlanScreen: React.FC = () => {
@@ -21,14 +23,18 @@ const PlanScreen: React.FC = () => {
     const formValues = {
       age: Number(values.age),
       retirementAge: Number(values.retirementAge),
+      lifeExpectancy: Number(values.lifeExpectancy),
       monthlyRetirement: Number(values.monthlyRetirement),
       returnOnInvestment: Number(values.returnOnInvestment) / 100,
+      currentSavings: Number(values.currentSavings),
     }
     const plan = calculateRetirmentPlan(formValues)
 
     return (
       <PlanPreview
         plan={plan}
+        values={values}
+        setValues={setValues}
         resetPlan={() => {
           setStep(0)
           setValues(initialValues)
@@ -37,7 +43,14 @@ const PlanScreen: React.FC = () => {
     )
   }
 
-  return <PlanForm {...{ values, setValues, step, setStep }} />
+  return (
+    <PlanForm
+      values={values}
+      setValues={setValues}
+      step={step}
+      setStep={setStep}
+    />
+  )
 }
 
 export default PlanScreen

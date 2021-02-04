@@ -8,6 +8,13 @@ import {
   Heading,
   Button,
   Text,
+  VStack,
+  FormControl,
+  Input,
+  InputGroup,
+  InputRightElement,
+  FormLabel,
+  FormErrorMessage,
   useTheme,
 } from '@chakra-ui/react'
 import { formatCurrency } from '../utils/format'
@@ -20,6 +27,24 @@ import {
   Bar,
   ResponsiveContainer,
 } from 'recharts'
+import {
+  Formik,
+  Field,
+  Form,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  FieldInputProps,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  FormikProps,
+} from 'formik'
+import {
+  validateAge,
+  validateRetirementAge,
+  validateMonthlyRetirement,
+  validateReturnOnInvestment,
+  validateLifeExpectancy,
+  validateCurrentSavings,
+  combineValidators,
+} from '../utils/validation'
 
 const seriesToLabel: { [key: string]: string } = {
   equity: 'Kapitał',
@@ -38,10 +63,21 @@ function tickFormatter(value: number): string {
   return String(value)
 }
 
+const validate = combineValidators([
+  { name: 'age', validation: validateAge },
+  { name: 'retirementAge', validation: validateRetirementAge },
+  { name: 'lifeExpectancy', validation: validateLifeExpectancy },
+  { name: 'monthlyRetirement', validation: validateMonthlyRetirement },
+  { name: 'returnOnInvestment', validation: validateReturnOnInvestment },
+  { name: 'currentSavings', validation: validateCurrentSavings },
+])
+
 const PlanPreview: React.FC<{
   plan: RetirementPlanValues
   resetPlan: React.MouseEventHandler<HTMLElement>
-}> = ({ plan, resetPlan }) => {
+  values: PlanFormValues
+  setValues: Function
+}> = ({ plan, resetPlan, values, setValues }) => {
   const theme = useTheme()
 
   return (
@@ -67,9 +103,197 @@ const PlanPreview: React.FC<{
             </Button>
           </Flex>
         </HStack>
-        <HStack alignItems="flex-start" spacing={8}>
-          <Box flex="1" borderWidth="1px" borderRadius="lg" py={8} px={8}>
-            <Heading fontSize="2xl">Ustawienia strategii</Heading>
+        <HStack alignItems="flex-start" spacing={12}>
+          <Box
+            flex="1"
+            borderWidth="1px"
+            borderRadius="lg"
+            py={8}
+            px={8}
+            flexShrink={0}
+          >
+            <Heading fontSize="2xl" mb={4}>
+              Ustawienia strategii
+            </Heading>
+            <Formik<PlanFormValues>
+              initialValues={values}
+              validateOnChange={false}
+              validate={(values) => {
+                const errors = validate(values)
+                if (Object.keys(errors).length === 0) {
+                  setValues(values)
+                }
+                return errors
+              }}
+              onSubmit={() => {}}
+            >
+              {() => (
+                <Form>
+                  <VStack spacing={4} mb={4}>
+                    <Field name="age" type="number">
+                      {({
+                        field,
+                        form,
+                      }: {
+                        field: FieldInputProps<''>
+                        form: FormikProps<PlanFormValues>
+                      }) => (
+                        <FormControl
+                          isInvalid={!!(form.errors.age && form.touched.age)}
+                        >
+                          <FormLabel>Wiek</FormLabel>
+                          <Input {...field} placeholder="Wiek" />
+                          <FormErrorMessage>{form.errors.age}</FormErrorMessage>
+                        </FormControl>
+                      )}
+                    </Field>
+                    <Field name="retirementAge" type="number">
+                      {({
+                        field,
+                        form,
+                      }: {
+                        field: FieldInputProps<''>
+                        form: FormikProps<PlanFormValues>
+                      }) => (
+                        <FormControl
+                          isInvalid={
+                            !!(
+                              form.errors.retirementAge &&
+                              form.touched.retirementAge
+                            )
+                          }
+                          maxWidth="sm"
+                        >
+                          <FormLabel>Wiek emerytalny</FormLabel>
+                          <Input {...field} placeholder="Wiek emerytalny" />
+                          <FormErrorMessage>
+                            {form.errors.retirementAge}
+                          </FormErrorMessage>
+                        </FormControl>
+                      )}
+                    </Field>
+                    <Field name="lifeExpectancy" type="number">
+                      {({
+                        field,
+                        form,
+                      }: {
+                        field: FieldInputProps<''>
+                        form: FormikProps<PlanFormValues>
+                      }) => (
+                        <FormControl
+                          isInvalid={
+                            !!(
+                              form.errors.lifeExpectancy &&
+                              form.touched.lifeExpectancy
+                            )
+                          }
+                          maxWidth="sm"
+                        >
+                          <FormLabel>Oczekiwana długość życia</FormLabel>
+                          <Input
+                            {...field}
+                            placeholder="Oczekiwana długość życia"
+                          />
+                          <FormErrorMessage>
+                            {form.errors.lifeExpectancy}
+                          </FormErrorMessage>
+                        </FormControl>
+                      )}
+                    </Field>
+                    <Field name="monthlyRetirement" type="number">
+                      {({
+                        field,
+                        form,
+                      }: {
+                        field: FieldInputProps<''>
+                        form: FormikProps<PlanFormValues>
+                      }) => (
+                        <FormControl
+                          isInvalid={
+                            !!(
+                              form.errors.monthlyRetirement &&
+                              form.touched.monthlyRetirement
+                            )
+                          }
+                        >
+                          <FormLabel>Wysokość miesięcznej emerytury</FormLabel>
+                          <InputGroup>
+                            <Input
+                              {...field}
+                              placeholder="Wysokość miesięcznej emerytury"
+                            />
+                            <InputRightElement color="gray.400" children="zł" />
+                          </InputGroup>
+                          <FormErrorMessage>
+                            {form.errors.monthlyRetirement}
+                          </FormErrorMessage>
+                        </FormControl>
+                      )}
+                    </Field>
+                    <Field name="returnOnInvestment" type="number">
+                      {({
+                        field,
+                        form,
+                      }: {
+                        field: FieldInputProps<''>
+                        form: FormikProps<PlanFormValues>
+                      }) => (
+                        <FormControl
+                          isInvalid={
+                            !!(
+                              form.errors.returnOnInvestment &&
+                              form.touched.returnOnInvestment
+                            )
+                          }
+                        >
+                          <FormLabel>Zwrot z inwestycji</FormLabel>
+                          <InputGroup>
+                            <Input
+                              {...field}
+                              placeholder="Zwrot z inwestycji"
+                            />
+                            <InputRightElement color="gray.400" children="%" />
+                          </InputGroup>
+                          <FormErrorMessage>
+                            {form.errors.returnOnInvestment}
+                          </FormErrorMessage>
+                        </FormControl>
+                      )}
+                    </Field>
+                    <Field name="currentSavings" type="number">
+                      {({
+                        field,
+                        form,
+                      }: {
+                        field: FieldInputProps<''>
+                        form: FormikProps<PlanFormValues>
+                      }) => (
+                        <FormControl
+                          isInvalid={
+                            !!(
+                              form.errors.currentSavings &&
+                              form.touched.currentSavings
+                            )
+                          }
+                        >
+                          <FormLabel>Aktualne oszczędności</FormLabel>
+                          <InputGroup>
+                            <Input
+                              {...field}
+                              placeholder="Aktualne oszczędności"
+                            />
+                            <InputRightElement color="gray.400" children="zł" />
+                          </InputGroup>
+                          <FormErrorMessage>
+                            {form.errors.currentSavings}
+                          </FormErrorMessage>
+                        </FormControl>
+                      )}
+                    </Field>
+                  </VStack>
+                </Form>
+              )}
+            </Formik>
           </Box>
           <Box flex="2" py={8}>
             <Flex mb={16}>

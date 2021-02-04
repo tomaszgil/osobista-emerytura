@@ -17,15 +17,15 @@ function calculateRetirementPlan({
   retirementAge,
   monthlyRetirement,
   returnOnInvestment,
-  lifeExpectancy = 80,
-  currentSavings = 0,
+  lifeExpectancy,
+  currentSavings,
 }: {
   age: number
   retirementAge: number
   monthlyRetirement: number
   returnOnInvestment: number
-  lifeExpectancy?: number
-  currentSavings?: number
+  lifeExpectancy: number
+  currentSavings: number
 }): RetirementPlanValues {
   const retirementMonthsNumber = (lifeExpectancy - retirementAge) * 12
   const preRetirementMonthsNumber = (retirementAge - age) * 12
