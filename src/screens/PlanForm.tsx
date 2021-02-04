@@ -7,6 +7,8 @@ import {
   Heading,
   Button,
   Input,
+  InputGroup,
+  InputRightElement,
   FormControl,
   Center,
   FormErrorMessage,
@@ -126,12 +128,20 @@ const MonthlyRetirementStep: React.FC<{ title: string }> = ({ title }) => {
             }
             maxWidth="sm"
           >
-            <Input
-              {...field}
-              ref={inputRef}
-              size="lg"
-              placeholder="Wysokość miesięcznej emerytury"
-            />
+            <InputGroup>
+              <Input
+                {...field}
+                ref={inputRef}
+                size="lg"
+                placeholder="Wysokość miesięcznej emerytury"
+              />
+              <InputRightElement
+                color="gray.400"
+                fontSize="1.2em"
+                top={1}
+                children="zł"
+              />
+            </InputGroup>
             <FormErrorMessage>{form.errors.monthlyRetirement}</FormErrorMessage>
           </FormControl>
         )}

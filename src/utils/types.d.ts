@@ -3,8 +3,10 @@ type NumberInputValue = number | ''
 type PlanFormValues = {
   age: NumberInputValue
   retirementAge: NumberInputValue
+  lifeExpectancy: NumberInputValue
   monthlyRetirement: NumberInputValue
-  returnOnInvestment: string
+  returnOnInvestment: NumberInputValue
+  currentSavings: NumberInputValue
 }
 
 type RetirementPlanValues = {
