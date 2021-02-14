@@ -175,7 +175,8 @@ const ReturnOnInvestmentStep: React.FC<{ title: string }> = ({ title }) => {
     name: 'returnOnInvestment',
     defaultValue: '3',
     onChange: (value: string) => {
-      setFieldValue('returnOnInvestment', value)
+      setFieldValue('returnOnInvestmentDuringSaving', value)
+      setFieldValue('returnOnInvestmentDuringRetirement', value)
     },
   })
 

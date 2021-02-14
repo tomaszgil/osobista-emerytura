@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import {
   HStack,
+  Stack,
   Box,
   Heading,
   Button,
@@ -11,6 +12,7 @@ import {
   Text,
   Flex,
   Divider,
+  SimpleGrid,
   chakra,
 } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
@@ -42,9 +44,15 @@ const Home: React.FC = () => {
       <Box background="purple.50">
         <Header />
         <PageContainer>
-          <HStack spacing={8} pt={16} pb={24}>
+          <Stack
+            direction={['column', null, 'row']}
+            spacing={8}
+            alignItems="center"
+            pt={16}
+            pb={24}
+          >
             <Box flex="1">
-              <Heading fontSize="5xl">
+              <Heading fontSize={['4xl', null, '5xl']}>
                 Nie czekaj na państwową emeryturę
               </Heading>
               <Text my={6} fontSize="xl">
@@ -58,7 +66,7 @@ const Home: React.FC = () => {
             <Box flex="1">
               <chakra.img src={banker}></chakra.img>
             </Box>
-          </HStack>
+          </Stack>
         </PageContainer>
       </Box>
       <Box py={24}>
@@ -73,7 +81,12 @@ const Home: React.FC = () => {
               vulputate non dui at, auctor mattis massa.
             </Text>
           </Container>
-          <HStack spacing={8} mb={16} alignItems="flex-start">
+          <SimpleGrid
+            columns={{ md: 2, lg: 4 }}
+            spacing={8}
+            mb={16}
+            alignItems="flex-start"
+          >
             <InfoBox icon={health} title="Kondycja ubezpieczeń społecznych">
               Prognozuje się, że za ok. 30 lat emerytura z ZUS będzie wynosić
               nie więcej niż 30% ostatniego wynagrodzenia. W takim scenariuszu
@@ -98,7 +111,7 @@ const Home: React.FC = () => {
               z inwestycji pokrywają koszty życia. Od tej chwili praca zarobkowa
               jest opcjonalna.
             </InfoBox>
-          </HStack>
+          </SimpleGrid>
           <Flex justifyContent="center">
             <Button size="lg" as={RouterLink} to="/emerytura">
               Dowiedz się więcej

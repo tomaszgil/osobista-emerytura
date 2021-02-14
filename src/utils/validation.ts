@@ -70,16 +70,30 @@ export function validateMonthlyRetirement(
   }
 }
 
-export function validateReturnOnInvestment(
+export function validateReturnOnInvestmentDuringSaving(
   values: PlanFormValues
 ): string | undefined {
-  const { returnOnInvestment } = values
-  const requiredError = validateRequired(returnOnInvestment)
+  const { returnOnInvestmentDuringSaving } = values
+  const requiredError = validateRequired(returnOnInvestmentDuringSaving)
   if (requiredError) {
     return requiredError
   }
 
-  if (Number(returnOnInvestment) < 0) {
+  if (Number(returnOnInvestmentDuringSaving) < 0) {
+    return 'Zwrot z inwestycji powinien być nieujemny'
+  }
+}
+
+export function validateReturnOnInvestmentDuringRetirement(
+  values: PlanFormValues
+): string | undefined {
+  const { returnOnInvestmentDuringRetirement } = values
+  const requiredError = validateRequired(returnOnInvestmentDuringRetirement)
+  if (requiredError) {
+    return requiredError
+  }
+
+  if (Number(returnOnInvestmentDuringRetirement) < 0) {
     return 'Zwrot z inwestycji powinien być nieujemny'
   }
 }

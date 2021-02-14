@@ -9,7 +9,8 @@ const initialValues = {
   retirementAge: '',
   lifeExpectancy: '80',
   monthlyRetirement: '',
-  returnOnInvestment: '3',
+  returnOnInvestmentDuringSaving: '3',
+  returnOnInvestmentDuringRetirement: '3',
   currentSavings: '0',
 }
 
@@ -25,7 +26,10 @@ const PlanScreen: React.FC = () => {
       retirementAge: Number(values.retirementAge),
       lifeExpectancy: Number(values.lifeExpectancy),
       monthlyRetirement: Number(values.monthlyRetirement),
-      returnOnInvestment: Number(values.returnOnInvestment) / 100,
+      returnOnInvestmentDuringSaving:
+        Number(values.returnOnInvestmentDuringSaving) / 100,
+      returnOnInvestmentDuringRetirement:
+        Number(values.returnOnInvestmentDuringRetirement) / 100,
       currentSavings: Number(values.currentSavings),
     }
     const plan = calculateRetirmentPlan(formValues)

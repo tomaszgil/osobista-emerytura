@@ -3,6 +3,7 @@ import PageContainer from '../components/PageContainer'
 import Header from '../components/Header'
 import {
   HStack,
+  Stack,
   Box,
   Flex,
   Heading,
@@ -40,7 +41,8 @@ import {
   validateAge,
   validateRetirementAge,
   validateMonthlyRetirement,
-  validateReturnOnInvestment,
+  validateReturnOnInvestmentDuringRetirement,
+  validateReturnOnInvestmentDuringSaving,
   validateLifeExpectancy,
   validateCurrentSavings,
   combineValidators,
@@ -68,7 +70,14 @@ const validate = combineValidators([
   { name: 'retirementAge', validation: validateRetirementAge },
   { name: 'lifeExpectancy', validation: validateLifeExpectancy },
   { name: 'monthlyRetirement', validation: validateMonthlyRetirement },
-  { name: 'returnOnInvestment', validation: validateReturnOnInvestment },
+  {
+    name: 'returnOnInvestmentDuringSaving',
+    validation: validateReturnOnInvestmentDuringSaving,
+  },
+  {
+    name: 'returnOnInvestmentDuringRetirement',
+    validation: validateReturnOnInvestmentDuringRetirement,
+  },
   { name: 'currentSavings', validation: validateCurrentSavings },
 ])
 
@@ -94,7 +103,15 @@ const PlanPreview: React.FC<{
               oszczędnościową dla twojej osobistej emerytury.
             </Text>
           </Box>
-          <Flex flex="1" justifyContent="flex-end">
+          <Flex
+            flex="1"
+            justifyContent="flex-end"
+            sx={{
+              '@media print': {
+                display: 'none',
+              },
+            }}
+          >
             <Button size="lg" mr={2} onClick={window.print}>
               Eksportuj
             </Button>
@@ -103,7 +120,11 @@ const PlanPreview: React.FC<{
             </Button>
           </Flex>
         </HStack>
-        <HStack alignItems="flex-start" spacing={12}>
+        <Stack
+          alignItems="flex-start"
+          direction={{ md: 'row', base: 'column' }}
+          spacing={12}
+        >
           <Box
             flex="1"
             borderWidth="1px"
@@ -230,7 +251,7 @@ const PlanPreview: React.FC<{
                         </FormControl>
                       )}
                     </Field>
-                    <Field name="returnOnInvestment" type="number">
+                    <Field name="returnOnInvestmentDuringSaving" type="number">
                       {({
                         field,
                         form,
@@ -241,12 +262,14 @@ const PlanPreview: React.FC<{
                         <FormControl
                           isInvalid={
                             !!(
-                              form.errors.returnOnInvestment &&
-                              form.touched.returnOnInvestment
+                              form.errors.returnOnInvestmentDuringSaving &&
+                              form.touched.returnOnInvestmentDuringSaving
                             )
                           }
                         >
-                          <FormLabel>Zwrot z inwestycji</FormLabel>
+                          <FormLabel>
+                            Zwrot z inwestycji (w czasie oszczędzania)
+                          </FormLabel>
                           <InputGroup>
                             <Input
                               {...field}
@@ -255,7 +278,42 @@ const PlanPreview: React.FC<{
                             <InputRightElement color="gray.400" children="%" />
                           </InputGroup>
                           <FormErrorMessage>
-                            {form.errors.returnOnInvestment}
+                            {form.errors.returnOnInvestmentDuringSaving}
+                          </FormErrorMessage>
+                        </FormControl>
+                      )}
+                    </Field>
+                    <Field
+                      name="returnOnInvestmentDuringRetirement"
+                      type="number"
+                    >
+                      {({
+                        field,
+                        form,
+                      }: {
+                        field: FieldInputProps<''>
+                        form: FormikProps<PlanFormValues>
+                      }) => (
+                        <FormControl
+                          isInvalid={
+                            !!(
+                              form.errors.returnOnInvestmentDuringRetirement &&
+                              form.touched.returnOnInvestmentDuringRetirement
+                            )
+                          }
+                        >
+                          <FormLabel>
+                            Zwrot z inwestycji (w czasie emerytury)
+                          </FormLabel>
+                          <InputGroup>
+                            <Input
+                              {...field}
+                              placeholder="Zwrot z inwestycji"
+                            />
+                            <InputRightElement color="gray.400" children="%" />
+                          </InputGroup>
+                          <FormErrorMessage>
+                            {form.errors.returnOnInvestmentDuringRetirement}
                           </FormErrorMessage>
                         </FormControl>
                       )}
@@ -347,7 +405,7 @@ const PlanPreview: React.FC<{
               </ResponsiveContainer>
             </Box>
           </Box>
-        </HStack>
+        </Stack>
       </PageContainer>
     </>
   )
