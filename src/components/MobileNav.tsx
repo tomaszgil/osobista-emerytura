@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-  Link,
   Stack,
   IconButton,
   Drawer,
@@ -11,7 +10,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
-import { Link as RouterLink } from 'react-router-dom'
+import NavLinks from './NavLinks'
 
 const MobileNav: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -37,16 +36,8 @@ const MobileNav: React.FC = () => {
             <DrawerCloseButton />
 
             <DrawerBody>
-              <Stack as="nav" py={4} spacing={6}>
-                <Link to="/" as={RouterLink}>
-                  Strona główna
-                </Link>
-                <Link to="/plan" as={RouterLink}>
-                  Plan oszczędzania
-                </Link>
-                <Link to="/emerytura" as={RouterLink}>
-                  Emerytura
-                </Link>
+              <Stack as="nav" py={8} spacing={6}>
+                <NavLinks />
               </Stack>
             </DrawerBody>
           </DrawerContent>
