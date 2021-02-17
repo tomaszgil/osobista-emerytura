@@ -3,6 +3,7 @@ import PageContainer from '../components/PageContainer'
 import Header from '../components/Header'
 import {
   HStack,
+  Stack,
   Box,
   Heading,
   Button,
@@ -13,6 +14,7 @@ import {
   Center,
   FormErrorMessage,
   useRadioGroup,
+  useBreakpointValue,
 } from '@chakra-ui/react'
 import {
   Formik,
@@ -187,7 +189,12 @@ const ReturnOnInvestmentStep: React.FC<{ title: string }> = ({ title }) => {
       title={title}
       description="Wybierz przykładowy sposób pomnażania oszczędności, którego stopa zwrotu najlepiej odzwierciedla twoje możliwości inwestycyjne. Dokładną stopę zwrotu będziesz mógł dostosować później."
     >
-      <HStack spacing={6} alignItems="stretch" {...group}>
+      <Stack
+        spacing={6}
+        direction={{ md: 'row', base: 'column' }}
+        alignItems="stretch"
+        {...group}
+      >
         {options.map(({ title, value, icon }) => {
           const props = getRadioProps({
             value,
@@ -195,7 +202,7 @@ const ReturnOnInvestmentStep: React.FC<{ title: string }> = ({ title }) => {
           })
           return <RadioTile key={value} title={title} icon={icon} {...props} />
         })}
-      </HStack>
+      </Stack>
     </FormStep>
   )
 }
@@ -234,33 +241,37 @@ const PlanForm: React.FC<{
   values: PlanFormValues
   setValues: Function
 }> = ({ step, setStep, values, setValues }) => {
+  const isTablet = useBreakpointValue({ base: true, lg: false })
+
   return (
     <>
-      <PageBackground />
+      {!isTablet && <PageBackground />}
       <Header />
       <PageContainer>
-        <HStack spacing={8} mt={16} alignItems="flex-start">
-          <Box flex="1">
-            <Heading fontSize="2xl" mb={12}>
-              Plan oszczędzania
-            </Heading>
-            <Box as="nav">
-              {steps.map(({ name, title }: FormStepSchema, index) => {
-                const disabled = step < index
-                const checked = step > index
-                return (
-                  <FormStepButton
-                    key={name}
-                    disabled={disabled}
-                    title={title}
-                    checked={checked}
-                    onClick={() => setStep(index)}
-                    mb={8}
-                  />
-                )
-              })}
+        <HStack spacing={8} my={16} alignItems="flex-start">
+          {!isTablet && (
+            <Box flex="1">
+              <Heading fontSize="2xl" mb={12}>
+                Plan oszczędzania
+              </Heading>
+              <Box as="nav">
+                {steps.map(({ name, title }: FormStepSchema, index) => {
+                  const disabled = step < index
+                  const checked = step > index
+                  return (
+                    <FormStepButton
+                      key={name}
+                      disabled={disabled}
+                      title={title}
+                      checked={checked}
+                      onClick={() => setStep(index)}
+                      mb={8}
+                    />
+                  )
+                })}
+              </Box>
             </Box>
-          </Box>
+          )}
           <Box flex="2">
             <Formik<PlanFormValues>
               initialValues={values}
