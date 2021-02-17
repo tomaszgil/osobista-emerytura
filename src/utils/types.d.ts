@@ -5,7 +5,8 @@ type PlanFormValues = {
   retirementAge: NumberInputValue
   lifeExpectancy: NumberInputValue
   monthlyRetirement: NumberInputValue
-  returnOnInvestment: NumberInputValue
+  returnOnInvestmentDuringSaving: NumberInputValue
+  returnOnInvestmentDuringRetirement: NumberInputValue
   currentSavings: NumberInputValue
 }
 

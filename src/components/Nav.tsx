@@ -1,18 +1,10 @@
 import React from 'react'
-import { HStack, Link } from '@chakra-ui/react'
-import { Link as RouterLink } from 'react-router-dom'
+import { HStack } from '@chakra-ui/react'
+import NavLinks from './NavLinks'
 
 const Nav: React.FC = () => (
   <HStack as="nav" spacing={12}>
-    <Link to="/" as={RouterLink}>
-      Strona główna
-    </Link>
-    <Link to="/plan" as={RouterLink}>
-      Plan oszczędzania
-    </Link>
-    <Link to="/emerytura" as={RouterLink}>
-      Emerytura
-    </Link>
+    <NavLinks />
   </HStack>
 )
 

@@ -2,13 +2,13 @@ import * as React from 'react'
 import PageContainer from '../components/PageContainer'
 import Header from '../components/Header'
 import {
-  HStack,
+  Stack,
   Box,
   Flex,
   Heading,
   Button,
   Text,
-  VStack,
+  SimpleGrid,
   FormControl,
   Input,
   InputGroup,
@@ -40,7 +40,8 @@ import {
   validateAge,
   validateRetirementAge,
   validateMonthlyRetirement,
-  validateReturnOnInvestment,
+  validateReturnOnInvestmentDuringRetirement,
+  validateReturnOnInvestmentDuringSaving,
   validateLifeExpectancy,
   validateCurrentSavings,
   combineValidators,
@@ -68,9 +69,24 @@ const validate = combineValidators([
   { name: 'retirementAge', validation: validateRetirementAge },
   { name: 'lifeExpectancy', validation: validateLifeExpectancy },
   { name: 'monthlyRetirement', validation: validateMonthlyRetirement },
-  { name: 'returnOnInvestment', validation: validateReturnOnInvestment },
+  {
+    name: 'returnOnInvestmentDuringSaving',
+    validation: validateReturnOnInvestmentDuringSaving,
+  },
+  {
+    name: 'returnOnInvestmentDuringRetirement',
+    validation: validateReturnOnInvestmentDuringRetirement,
+  },
   { name: 'currentSavings', validation: validateCurrentSavings },
 ])
+
+const hideForPrint = {
+  sx: {
+    '@media print': {
+      display: 'none',
+    },
+  },
+}
 
 const PlanPreview: React.FC<{
   plan: RetirementPlanValues
@@ -84,7 +100,13 @@ const PlanPreview: React.FC<{
     <>
       <Header />
       <PageContainer>
-        <HStack spacing={8} pt={16} pb={16}>
+        <Stack
+          direction={{ md: 'row', base: 'column' }}
+          alignItems={{ md: 'center', base: 'flex-start' }}
+          spacing={8}
+          pt={16}
+          pb={16}
+        >
           <Box flex="1">
             <Heading fontSize="4xl" mb={4}>
               Strategia
@@ -94,7 +116,7 @@ const PlanPreview: React.FC<{
               oszczędnościową dla twojej osobistej emerytury.
             </Text>
           </Box>
-          <Flex flex="1" justifyContent="flex-end">
+          <Flex flex="1" justifyContent="flex-end" {...hideForPrint}>
             <Button size="lg" mr={2} onClick={window.print}>
               Eksportuj
             </Button>
@@ -102,8 +124,13 @@ const PlanPreview: React.FC<{
               Resetuj
             </Button>
           </Flex>
-        </HStack>
-        <HStack alignItems="flex-start" spacing={12}>
+        </Stack>
+        <Stack
+          direction={{ lg: 'row', base: 'column' }}
+          mb={16}
+          alignItems={{ base: 'stretch', lg: 'flex-start' }}
+          spacing={12}
+        >
           <Box
             flex="1"
             borderWidth="1px"
@@ -129,7 +156,7 @@ const PlanPreview: React.FC<{
             >
               {() => (
                 <Form>
-                  <VStack spacing={4} mb={4}>
+                  <SimpleGrid spacing={4} columns={{ base: 1, md: 2, lg: 1 }}>
                     <Field name="age" type="number">
                       {({
                         field,
@@ -162,7 +189,6 @@ const PlanPreview: React.FC<{
                               form.touched.retirementAge
                             )
                           }
-                          maxWidth="sm"
                         >
                           <FormLabel>Wiek emerytalny</FormLabel>
                           <Input {...field} placeholder="Wiek emerytalny" />
@@ -187,7 +213,6 @@ const PlanPreview: React.FC<{
                               form.touched.lifeExpectancy
                             )
                           }
-                          maxWidth="sm"
                         >
                           <FormLabel>Oczekiwana długość życia</FormLabel>
                           <Input
@@ -230,7 +255,7 @@ const PlanPreview: React.FC<{
                         </FormControl>
                       )}
                     </Field>
-                    <Field name="returnOnInvestment" type="number">
+                    <Field name="returnOnInvestmentDuringSaving" type="number">
                       {({
                         field,
                         form,
@@ -241,12 +266,14 @@ const PlanPreview: React.FC<{
                         <FormControl
                           isInvalid={
                             !!(
-                              form.errors.returnOnInvestment &&
-                              form.touched.returnOnInvestment
+                              form.errors.returnOnInvestmentDuringSaving &&
+                              form.touched.returnOnInvestmentDuringSaving
                             )
                           }
                         >
-                          <FormLabel>Zwrot z inwestycji</FormLabel>
+                          <FormLabel>
+                            Zwrot z inwestycji (w czasie oszczędzania)
+                          </FormLabel>
                           <InputGroup>
                             <Input
                               {...field}
@@ -255,7 +282,42 @@ const PlanPreview: React.FC<{
                             <InputRightElement color="gray.400" children="%" />
                           </InputGroup>
                           <FormErrorMessage>
-                            {form.errors.returnOnInvestment}
+                            {form.errors.returnOnInvestmentDuringSaving}
+                          </FormErrorMessage>
+                        </FormControl>
+                      )}
+                    </Field>
+                    <Field
+                      name="returnOnInvestmentDuringRetirement"
+                      type="number"
+                    >
+                      {({
+                        field,
+                        form,
+                      }: {
+                        field: FieldInputProps<''>
+                        form: FormikProps<PlanFormValues>
+                      }) => (
+                        <FormControl
+                          isInvalid={
+                            !!(
+                              form.errors.returnOnInvestmentDuringRetirement &&
+                              form.touched.returnOnInvestmentDuringRetirement
+                            )
+                          }
+                        >
+                          <FormLabel>
+                            Zwrot z inwestycji (w czasie emerytury)
+                          </FormLabel>
+                          <InputGroup>
+                            <Input
+                              {...field}
+                              placeholder="Zwrot z inwestycji"
+                            />
+                            <InputRightElement color="gray.400" children="%" />
+                          </InputGroup>
+                          <FormErrorMessage>
+                            {form.errors.returnOnInvestmentDuringRetirement}
                           </FormErrorMessage>
                         </FormControl>
                       )}
@@ -290,13 +352,17 @@ const PlanPreview: React.FC<{
                         </FormControl>
                       )}
                     </Field>
-                  </VStack>
+                  </SimpleGrid>
                 </Form>
               )}
             </Formik>
           </Box>
           <Box flex="2" py={8}>
-            <Flex mb={16}>
+            <Stack
+              mb={16}
+              spacing={8}
+              direction={{ md: 'row', base: 'column' }}
+            >
               <Box flex="1">
                 <Text fontSize="2xl" color="brand.900" fontWeight="bold" mb={2}>
                   Wysokość miesięcznych oszczędności
@@ -313,8 +379,8 @@ const PlanPreview: React.FC<{
                   {formatCurrency(plan.totalSavings)}
                 </Text>
               </Box>
-            </Flex>
-            <Box mb={16}>
+            </Stack>
+            <Box>
               <Heading fontSize="2xl" mb={8}>
                 Kapitał
               </Heading>
@@ -347,7 +413,7 @@ const PlanPreview: React.FC<{
               </ResponsiveContainer>
             </Box>
           </Box>
-        </HStack>
+        </Stack>
       </PageContainer>
     </>
   )
