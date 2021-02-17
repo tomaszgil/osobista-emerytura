@@ -20,6 +20,7 @@ const MobileNav: React.FC = () => {
       <IconButton
         aria-label="Navigation"
         variant="ghost"
+        fontSize="lg"
         color="brand.800"
         ref={btnRef}
         icon={<HamburgerIcon />}
@@ -34,7 +35,6 @@ const MobileNav: React.FC = () => {
         <DrawerOverlay>
           <DrawerContent>
             <DrawerCloseButton />
-
             <DrawerBody>
               <Stack as="nav" py={8} spacing={6}>
                 <NavLinks />

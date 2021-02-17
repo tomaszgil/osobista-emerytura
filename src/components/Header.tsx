@@ -11,7 +11,7 @@ const Header: React.FC = () => {
 
   return (
     <PageContainer>
-      <Flex py={6} justifyContent="space-between">
+      <Flex py={6} justifyContent="space-between" alignItems="center">
         <RouterLink to="/">
           <Logo />
         </RouterLink>

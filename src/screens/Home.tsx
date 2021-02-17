@@ -3,7 +3,6 @@ import PageContainer from '../components/PageContainer'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import {
-  HStack,
   Stack,
   Box,
   Heading,
