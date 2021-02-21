@@ -8,7 +8,6 @@ interface History {
 }
 
 const trackHistory = debounce((location: History) => {
-  console.log('changed')
   ReactGA.set({ page: location.pathname })
   ReactGA.pageview(location.pathname)
 }, 100)
