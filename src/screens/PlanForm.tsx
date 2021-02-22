@@ -38,8 +38,9 @@ import {
   validateRetirementAge,
   validateMonthlyRetirement,
   createStepValidator,
-} from '../utils/validation'
+} from '../services/validation'
 import useFocusOnShow from '../utils/useFocusOnShow'
+import { track } from '../utils/analytics'
 
 const AgeStep: React.FC<{ title: string }> = ({ title }) => {
   const inputRef = useFocusOnShow()
@@ -235,6 +236,14 @@ export const steps: FormStepSchema[] = [
 
 const stepValidation = createStepValidator(steps)
 
+function logStepCompleted(step: number) {
+  track({
+    category: 'Plan',
+    action: 'Completed form step',
+    label: steps[step].name,
+  })
+}
+
 const PlanForm: React.FC<{
   step: number
   setStep: Function
@@ -281,6 +290,7 @@ const PlanForm: React.FC<{
               validateOnChange={false}
               onSubmit={(values) => {
                 setValues(values)
+                logStepCompleted(step)
                 setStep(step + 1)
               }}
             >
