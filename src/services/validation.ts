@@ -112,11 +112,13 @@ export function validateCurrentSavings(
   }
 }
 
-export function createStepValidator(steps: FormStepSchema[]) {
-  return function (values: PlanFormValues, step: number) {
+export function createStepValidator<Values>(
+  steps: Array<{ name: string; validation?: Function }>
+) {
+  return function (values: Values, step: number) {
     let errors = {}
     const stepsToVerify = steps.slice(0, step + 1)
-    stepsToVerify.forEach(({ name, validation }: FormStepSchema) => {
+    stepsToVerify.forEach(({ name, validation }) => {
       if (validation) {
         const error = validation(values)
         if (error) {

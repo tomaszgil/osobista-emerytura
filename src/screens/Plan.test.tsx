@@ -23,6 +23,8 @@ jest.mock('@chakra-ui/react', () => ({
 }))
 
 test('allows user to fullfil the form with validation for each step', async () => {
+  calculateRetirementPlan.mockReturnValue({})
+
   act(() => {
     render(<Plan />)
   })
