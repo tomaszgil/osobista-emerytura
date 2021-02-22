@@ -4,6 +4,7 @@ import { screen, act } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import Plan from './Plan'
 import calculateRetirementPlan from '../services/retirement'
+import { track } from '../utils/analytics'
 
 const step1Heading = 'Ile masz lat?'
 const step2Heading = 'W jakim wieku chcesz przejść na emeryturę?'
@@ -13,6 +14,13 @@ const step4Heading = 'Jak chcesz pomnażać swoje oszczędności?'
 jest.setTimeout(20000)
 
 jest.mock('../services/retirement', () => jest.fn())
+jest.mock('../utils/analytics', () => ({
+  track: jest.fn(),
+}))
+jest.mock('@chakra-ui/react', () => ({
+  ...jest.requireActual('@chakra-ui/react'),
+  useBreakpointValue: jest.fn(() => false),
+}))
 
 test('allows user to fullfil the form with validation for each step', async () => {
   act(() => {
@@ -56,6 +64,11 @@ test('allows user to fullfil the form with validation for each step', async () =
   // Step 1 - success
   await act(async () => {
     await userEvent.type(ageInput, '{selectall}24{enter}', { delay: 1 })
+  })
+  expect(track).toHaveBeenLastCalledWith({
+    category: 'Plan',
+    action: 'Completed form step',
+    label: 'age',
   })
 
   // Step 2 - Retirement age
@@ -101,6 +114,11 @@ test('allows user to fullfil the form with validation for each step', async () =
       delay: 1,
     })
   })
+  expect(track).toHaveBeenLastCalledWith({
+    category: 'Plan',
+    action: 'Completed form step',
+    label: 'retirementAge',
+  })
 
   // Step 3 - Montly retirement
   const monthlyRetirementInput = screen.getByPlaceholderText(
@@ -135,6 +153,11 @@ test('allows user to fullfil the form with validation for each step', async () =
       delay: 1,
     })
   })
+  expect(track).toHaveBeenLastCalledWith({
+    category: 'Plan',
+    action: 'Completed form step',
+    label: 'monthlyRetirement',
+  })
 
   // Step 4 - Return on investment
   expect(monthlyRetirementInput).not.toBeInTheDocument()
@@ -165,11 +188,19 @@ test('allows user to fullfil the form with validation for each step', async () =
     userEvent.click(screen.getByText('Fundusze inwestycyjne oraz obligacje'))
     userEvent.click(screen.getByRole('button', { name: 'Wygeneruj plan' }))
   })
+  expect(track).toHaveBeenLastCalledWith({
+    category: 'Plan',
+    action: 'Completed form step',
+    label: 'returnOnInvestment',
+  })
 
   expect(calculateRetirementPlan).toHaveBeenCalledWith({
+    currentSavings: 0,
+    lifeExpectancy: 80,
     age: 24,
     retirementAge: 60,
     monthlyRetirement: 2000,
-    returnOnInvestment: 0.05,
+    returnOnInvestmentDuringRetirement: 0.05,
+    returnOnInvestmentDuringSaving: 0.05,
   })
 })

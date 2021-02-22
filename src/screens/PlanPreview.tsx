@@ -45,7 +45,8 @@ import {
   validateLifeExpectancy,
   validateCurrentSavings,
   combineValidators,
-} from '../utils/validation'
+} from '../services/validation'
+import { track } from '../utils/analytics'
 
 const seriesToLabel: { [key: string]: string } = {
   equity: 'Kapitał',
@@ -90,7 +91,7 @@ const hideForPrint = {
 
 const PlanPreview: React.FC<{
   plan: RetirementPlanValues
-  resetPlan: React.MouseEventHandler<HTMLElement>
+  resetPlan: Function
   values: PlanFormValues
   setValues: Function
 }> = ({ plan, resetPlan, values, setValues }) => {
@@ -117,10 +118,30 @@ const PlanPreview: React.FC<{
             </Text>
           </Box>
           <Flex flex="1" justifyContent="flex-end" {...hideForPrint}>
-            <Button size="lg" mr={2} onClick={window.print}>
+            <Button
+              size="lg"
+              mr={2}
+              onClick={() => {
+                window.print()
+                track({
+                  category: 'Plan',
+                  action: 'Export',
+                })
+              }}
+            >
               Eksportuj
             </Button>
-            <Button size="lg" variant="ghost" onClick={resetPlan}>
+            <Button
+              size="lg"
+              variant="ghost"
+              onClick={() => {
+                resetPlan()
+                track({
+                  category: 'Plan',
+                  action: 'Reset',
+                })
+              }}
+            >
               Resetuj
             </Button>
           </Flex>
