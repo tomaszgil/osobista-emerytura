@@ -9,33 +9,9 @@ import {
   Button,
   Text,
   SimpleGrid,
-  FormControl,
-  Input,
-  InputGroup,
-  InputRightElement,
-  FormLabel,
-  FormErrorMessage,
-  useTheme,
 } from '@chakra-ui/react'
 import { formatCurrency } from '../utils/format'
-import {
-  BarChart,
-  CartesianGrid,
-  Tooltip,
-  XAxis,
-  YAxis,
-  Bar,
-  ResponsiveContainer,
-} from 'recharts'
-import {
-  Formik,
-  Field,
-  Form,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  FieldInputProps,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  FormikProps,
-} from 'formik'
+import { Formik, Form } from 'formik'
 import {
   validateAge,
   validateRetirementAge,
@@ -47,23 +23,14 @@ import {
   combineValidators,
 } from '../services/validation'
 import { track } from '../utils/analytics'
-
-const seriesToLabel: { [key: string]: string } = {
-  equity: 'Kapitał',
-  interest: 'Odsetki',
-}
-
-function tickFormatter(value: number): string {
-  if (value > 10 ** 6) {
-    return `${value / 10 ** 6} mln`
-  }
-
-  if (value > 10 ** 3) {
-    return `${value / 10 ** 3} tys`
-  }
-
-  return String(value)
-}
+import AgeInput from './planPreview/AgeInput'
+import RetirementAgeInput from './planPreview/RetirementAgeInput'
+import LifeExpectancyInput from './planPreview/LifeExpectancyInput'
+import MonthlyRetirementInput from './planPreview/MonthlyRetirementInput'
+import ReturnOnInvestmentDuringSavingInput from './planPreview/ReturnOnInvestmentDuringSavingInput'
+import ReturnOnInvestmentDuringRetirementInput from './planPreview/ReturnOnInvestmentDuringRetirementInput'
+import CurrentSavingsInput from './planPreview/CurrentSavingsInput'
+import PlanChart from './planPreview/PlanChart'
 
 const validate = combineValidators([
   { name: 'age', validation: validateAge },
@@ -95,8 +62,6 @@ const PlanPreview: React.FC<{
   values: PlanFormValues
   setValues: Function
 }> = ({ plan, resetPlan, values, setValues }) => {
-  const theme = useTheme()
-
   return (
     <>
       <Header />
@@ -178,201 +143,13 @@ const PlanPreview: React.FC<{
               {() => (
                 <Form>
                   <SimpleGrid spacing={4} columns={{ base: 1, md: 2, lg: 1 }}>
-                    <Field name="age" type="number">
-                      {({
-                        field,
-                        form,
-                      }: {
-                        field: FieldInputProps<''>
-                        form: FormikProps<PlanFormValues>
-                      }) => (
-                        <FormControl
-                          isInvalid={!!(form.errors.age && form.touched.age)}
-                        >
-                          <FormLabel>Wiek</FormLabel>
-                          <Input {...field} placeholder="Wiek" />
-                          <FormErrorMessage>{form.errors.age}</FormErrorMessage>
-                        </FormControl>
-                      )}
-                    </Field>
-                    <Field name="retirementAge" type="number">
-                      {({
-                        field,
-                        form,
-                      }: {
-                        field: FieldInputProps<''>
-                        form: FormikProps<PlanFormValues>
-                      }) => (
-                        <FormControl
-                          isInvalid={
-                            !!(
-                              form.errors.retirementAge &&
-                              form.touched.retirementAge
-                            )
-                          }
-                        >
-                          <FormLabel>Wiek emerytalny</FormLabel>
-                          <Input {...field} placeholder="Wiek emerytalny" />
-                          <FormErrorMessage>
-                            {form.errors.retirementAge}
-                          </FormErrorMessage>
-                        </FormControl>
-                      )}
-                    </Field>
-                    <Field name="lifeExpectancy" type="number">
-                      {({
-                        field,
-                        form,
-                      }: {
-                        field: FieldInputProps<''>
-                        form: FormikProps<PlanFormValues>
-                      }) => (
-                        <FormControl
-                          isInvalid={
-                            !!(
-                              form.errors.lifeExpectancy &&
-                              form.touched.lifeExpectancy
-                            )
-                          }
-                        >
-                          <FormLabel>Oczekiwana długość życia</FormLabel>
-                          <Input
-                            {...field}
-                            placeholder="Oczekiwana długość życia"
-                          />
-                          <FormErrorMessage>
-                            {form.errors.lifeExpectancy}
-                          </FormErrorMessage>
-                        </FormControl>
-                      )}
-                    </Field>
-                    <Field name="monthlyRetirement" type="number">
-                      {({
-                        field,
-                        form,
-                      }: {
-                        field: FieldInputProps<''>
-                        form: FormikProps<PlanFormValues>
-                      }) => (
-                        <FormControl
-                          isInvalid={
-                            !!(
-                              form.errors.monthlyRetirement &&
-                              form.touched.monthlyRetirement
-                            )
-                          }
-                        >
-                          <FormLabel>Wysokość miesięcznej emerytury</FormLabel>
-                          <InputGroup>
-                            <Input
-                              {...field}
-                              placeholder="Wysokość miesięcznej emerytury"
-                            />
-                            <InputRightElement color="gray.400" children="zł" />
-                          </InputGroup>
-                          <FormErrorMessage>
-                            {form.errors.monthlyRetirement}
-                          </FormErrorMessage>
-                        </FormControl>
-                      )}
-                    </Field>
-                    <Field name="returnOnInvestmentDuringSaving" type="number">
-                      {({
-                        field,
-                        form,
-                      }: {
-                        field: FieldInputProps<''>
-                        form: FormikProps<PlanFormValues>
-                      }) => (
-                        <FormControl
-                          isInvalid={
-                            !!(
-                              form.errors.returnOnInvestmentDuringSaving &&
-                              form.touched.returnOnInvestmentDuringSaving
-                            )
-                          }
-                        >
-                          <FormLabel>
-                            Zwrot z inwestycji (w czasie oszczędzania)
-                          </FormLabel>
-                          <InputGroup>
-                            <Input
-                              {...field}
-                              placeholder="Zwrot z inwestycji"
-                            />
-                            <InputRightElement color="gray.400" children="%" />
-                          </InputGroup>
-                          <FormErrorMessage>
-                            {form.errors.returnOnInvestmentDuringSaving}
-                          </FormErrorMessage>
-                        </FormControl>
-                      )}
-                    </Field>
-                    <Field
-                      name="returnOnInvestmentDuringRetirement"
-                      type="number"
-                    >
-                      {({
-                        field,
-                        form,
-                      }: {
-                        field: FieldInputProps<''>
-                        form: FormikProps<PlanFormValues>
-                      }) => (
-                        <FormControl
-                          isInvalid={
-                            !!(
-                              form.errors.returnOnInvestmentDuringRetirement &&
-                              form.touched.returnOnInvestmentDuringRetirement
-                            )
-                          }
-                        >
-                          <FormLabel>
-                            Zwrot z inwestycji (w czasie emerytury)
-                          </FormLabel>
-                          <InputGroup>
-                            <Input
-                              {...field}
-                              placeholder="Zwrot z inwestycji"
-                            />
-                            <InputRightElement color="gray.400" children="%" />
-                          </InputGroup>
-                          <FormErrorMessage>
-                            {form.errors.returnOnInvestmentDuringRetirement}
-                          </FormErrorMessage>
-                        </FormControl>
-                      )}
-                    </Field>
-                    <Field name="currentSavings" type="number">
-                      {({
-                        field,
-                        form,
-                      }: {
-                        field: FieldInputProps<''>
-                        form: FormikProps<PlanFormValues>
-                      }) => (
-                        <FormControl
-                          isInvalid={
-                            !!(
-                              form.errors.currentSavings &&
-                              form.touched.currentSavings
-                            )
-                          }
-                        >
-                          <FormLabel>Aktualne oszczędności</FormLabel>
-                          <InputGroup>
-                            <Input
-                              {...field}
-                              placeholder="Aktualne oszczędności"
-                            />
-                            <InputRightElement color="gray.400" children="zł" />
-                          </InputGroup>
-                          <FormErrorMessage>
-                            {form.errors.currentSavings}
-                          </FormErrorMessage>
-                        </FormControl>
-                      )}
-                    </Field>
+                    <AgeInput />
+                    <RetirementAgeInput />
+                    <LifeExpectancyInput />
+                    <MonthlyRetirementInput />
+                    <ReturnOnInvestmentDuringSavingInput />
+                    <ReturnOnInvestmentDuringRetirementInput />
+                    <CurrentSavingsInput />
                   </SimpleGrid>
                 </Form>
               )}
@@ -401,37 +178,11 @@ const PlanPreview: React.FC<{
                 </Text>
               </Box>
             </Stack>
-            <Box>
+            <Box sx={{ overflow: 'hidden' }}>
               <Heading fontSize="2xl" mb={8}>
                 Kapitał
               </Heading>
-              <ResponsiveContainer width="100%" height={400}>
-                <BarChart data={plan.series}>
-                  <CartesianGrid vertical={false} />
-                  <XAxis axisLine={false} tickLine={false} dataKey="year" />
-                  <YAxis
-                    axisLine={false}
-                    tickLine={false}
-                    tickFormatter={tickFormatter}
-                  />
-                  <Tooltip
-                    formatter={(value: number, label: string) => [
-                      formatCurrency(value),
-                      seriesToLabel[label],
-                    ]}
-                  />
-                  <Bar
-                    dataKey="equity"
-                    stackId="x"
-                    fill={theme.colors.brand[700]}
-                  />
-                  <Bar
-                    dataKey="interest"
-                    stackId="x"
-                    fill={theme.colors.brand[600]}
-                  />
-                </BarChart>
-              </ResponsiveContainer>
+              <PlanChart data={plan.series} />
             </Box>
           </Box>
         </Stack>

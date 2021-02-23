@@ -1,6 +1,7 @@
 import * as React from 'react'
 import PlanPreview from './PlanPreview'
-import PlanForm, { steps } from './PlanForm'
+import PlanForm from './PlanForm'
+import steps from './planForm/steps'
 import useLocalStorageState from '../utils/useLocalStorageState'
 import calculateRetirmentPlan from '../services/retirement'
 
