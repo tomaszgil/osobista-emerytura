@@ -28,7 +28,9 @@ function tickFormatter(value: number): string {
   return String(value)
 }
 
-const PlanChart: React.FC<{ data: any }> = ({ data }) => {
+const PlanChart: React.FC<{ data: RetirementPlanValues['series'] }> = ({
+  data,
+}) => {
   const theme = useTheme()
 
   return (
