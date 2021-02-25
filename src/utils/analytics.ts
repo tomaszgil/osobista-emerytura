@@ -4,7 +4,7 @@ import ReactGA, { EventArgs } from 'react-ga'
 const TRACKING_ID = 'UA-121989512-3'
 
 export function initialize() {
-  ReactGA.initialize(TRACKING_ID)
+  process.env.NODE_ENV === 'production' && ReactGA.initialize(TRACKING_ID)
 }
 
 export function track(data: EventArgs) {
