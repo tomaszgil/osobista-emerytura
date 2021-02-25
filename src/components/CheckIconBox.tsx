@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { Flex, useTheme } from '@chakra-ui/react'
 import { CheckIcon } from '@chakra-ui/icons'
 

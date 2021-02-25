@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { Stack, useRadioGroup } from '@chakra-ui/react'
 import { useFormikContext } from 'formik'
 import FormStep from '../../components/FormStep'
