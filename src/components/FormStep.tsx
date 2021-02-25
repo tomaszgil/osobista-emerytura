@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { Box, Heading, Container, Text, Center } from '@chakra-ui/react'
 
 const FormStep: React.FC<{

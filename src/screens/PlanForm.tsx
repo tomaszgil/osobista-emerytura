@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import PageContainer from '../components/PageContainer'
 import Header from '../components/Header'
 import {
@@ -9,14 +9,7 @@ import {
   Center,
   useBreakpointValue,
 } from '@chakra-ui/react'
-import {
-  Formik,
-  Form,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  FieldInputProps,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  FormikProps,
-} from 'formik'
+import { Formik, Form } from 'formik'
 import FormStepButton from '../components/FormStepButton'
 import PageBackground from '../components/PageBackground'
 import { createStepValidator } from '../services/validation'

@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { Input, FormControl, FormErrorMessage } from '@chakra-ui/react'
 import {
   Field,

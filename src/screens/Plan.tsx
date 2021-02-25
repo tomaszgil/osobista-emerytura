@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import PlanPreview from './PlanPreview'
 import PlanForm from './PlanForm'
 import steps from './planForm/steps'
