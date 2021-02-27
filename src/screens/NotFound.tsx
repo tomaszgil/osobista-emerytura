@@ -10,7 +10,6 @@ import {
   Text,
   Divider,
   chakra,
-  HStack,
 } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
 import bankrupt from '../assets/bankrupt.svg'
