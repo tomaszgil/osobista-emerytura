@@ -3,7 +3,7 @@ import PageContainer from './PageContainer'
 import Logo from './Logo'
 import { Box, Stack, Text } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
-import NavLinks from './NavLinks'
+import { NavLinks, AdditionalNavLinks } from './NavLinks'
 
 const Footer: React.FC = () => {
   return (
@@ -15,6 +15,7 @@ const Footer: React.FC = () => {
           spacing={{ md: 12, base: 4 }}
         >
           <NavLinks />
+          <AdditionalNavLinks />
         </Stack>
         <Box mb={4} mt={12}>
           <RouterLink to="/">
