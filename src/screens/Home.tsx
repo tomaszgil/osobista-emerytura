@@ -75,9 +75,9 @@ const Home: React.FC = () => {
               Dlaczego osobista emerytura?
             </Heading>
             <Text fontSize="lg" textAlign="center">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed quis
-              lobortis libero, quis pellentesque sapien. Mauris lorem sapien,
-              vulputate non dui at, auctor mattis massa.
+              Dzięki odpowiedniej wiedzy i systematyczności jesteś w stanie
+              zbudować kapitał, który może powiększyć twoją przyszłą emeryturę
+              lub zagwarantować wolność finansową.
             </Text>
           </Container>
           <SimpleGrid

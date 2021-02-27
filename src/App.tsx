@@ -13,6 +13,7 @@ const PlanScreen = React.lazy(
   () => import(/* webpackPrefetch: true */ './screens/Plan')
 )
 const NotFoundScreen = React.lazy(() => import('./screens/NotFound'))
+const AssetsScreen = React.lazy(() => import('./screens/Assets'))
 
 initialize()
 
@@ -26,6 +27,9 @@ export const App: React.FC = () => (
           </Route>
           <Route path="/plan">
             <PlanScreen />
+          </Route>
+          <Route path="/zasoby">
+            <AssetsScreen />
           </Route>
           <Route>
             <NotFoundScreen />

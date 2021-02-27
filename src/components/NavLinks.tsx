@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
 
-const NavLinks: React.FC = () => (
+export const NavLinks: React.FC = () => (
   <>
     <Link to="/" as={RouterLink}>
       Strona główna
@@ -16,4 +16,10 @@ const NavLinks: React.FC = () => (
   </>
 )
 
-export default NavLinks
+export const AdditionalNavLinks: React.FC = () => (
+  <>
+    <Link to="/zasoby" as={RouterLink}>
+      Wykorzystane zasoby
+    </Link>
+  </>
+)

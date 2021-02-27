@@ -10,7 +10,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
-import NavLinks from './NavLinks'
+import { NavLinks } from './NavLinks'
 
 const MobileNav: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()

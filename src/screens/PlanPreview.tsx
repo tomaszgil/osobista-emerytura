@@ -1,6 +1,7 @@
 import React from 'react'
 import PageContainer from '../components/PageContainer'
 import Header from '../components/Header'
+import Footer from '../components/Footer'
 import {
   Stack,
   Box,
@@ -8,6 +9,7 @@ import {
   Heading,
   Button,
   Text,
+  Divider,
   SimpleGrid,
 } from '@chakra-ui/react'
 import { formatCurrency } from '../utils/format'
@@ -113,7 +115,7 @@ const PlanPreview: React.FC<{
         </Stack>
         <Stack
           direction={{ lg: 'row', base: 'column' }}
-          mb={16}
+          mb={24}
           alignItems={{ base: 'stretch', lg: 'flex-start' }}
           spacing={12}
         >
@@ -187,6 +189,8 @@ const PlanPreview: React.FC<{
           </Box>
         </Stack>
       </PageContainer>
+      <Divider />
+      <Footer />
     </>
   )
 }
