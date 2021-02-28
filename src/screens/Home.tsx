@@ -15,7 +15,6 @@ import {
   Divider,
   SimpleGrid,
   chakra,
-  HStack,
 } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
 import banker from '../assets/banker.svg'
