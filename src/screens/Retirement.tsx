@@ -33,7 +33,7 @@ const Home: React.FC = () => {
             <Stack direction={{ md: 'row', base: 'column' }} spacing={8}>
               <Box flex="1">
                 <Heading fontSize="4xl" mb={4}>
-                  Emerytura
+                  Osobista emerytura
                 </Heading>
                 <Text fontSize="xl">
                   Dlaczego warto stworzyć swój własny plan emerytalny. Dowiedz
