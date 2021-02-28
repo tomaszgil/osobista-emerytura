@@ -35,11 +35,20 @@ const Home: React.FC = () => {
                   www.freepik.com
                 </Link>
               </Text>
-              <Text>
+              <Text mb={4}>
                 Business vector created by pch.vector -{' '}
                 <Link
                   target="_blank"
                   href="https://www.freepik.com/vectors/business"
+                >
+                  www.freepik.com
+                </Link>
+              </Text>
+              <Text mb={4}>
+                People vector created by pch.vector -{' '}
+                <Link
+                  target="_blank"
+                  href="https://www.freepik.com/vectors/people"
                 >
                   www.freepik.com
                 </Link>
