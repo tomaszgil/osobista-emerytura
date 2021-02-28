@@ -2,11 +2,13 @@ import React from 'react'
 import PageContainer from '../components/PageContainer'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import InfoIconBox from '../components/InfoIconBox'
 import {
   Stack,
   Box,
   Heading,
   Button,
+  Link,
   Container,
   Text,
   Flex,
@@ -20,22 +22,6 @@ import clock from '../assets/clock.svg'
 import weather from '../assets/weather.svg'
 import stock from '../assets/stock.svg'
 import health from '../assets/health.svg'
-
-type InfoBoxProps = {
-  icon: string
-  title: string
-  children: React.ReactNode
-}
-
-const InfoBox: React.FC<InfoBoxProps> = ({ icon, title, children }) => (
-  <Box flex="1">
-    <chakra.img src={icon} mb={4} height="4rem"></chakra.img>
-    <Heading fontSize="2xl" mb={4}>
-      {title}
-    </Heading>
-    <Text>{children}</Text>
-  </Box>
-)
 
 const Home: React.FC = () => {
   return (
@@ -58,9 +44,18 @@ const Home: React.FC = () => {
                 Stwórz własny plan, który pozwoli Ci zaoszczędzić dodatkowe
                 pieniądze na osobistą emeryturę.
               </Text>
-              <Button size="lg" to="/plan" as={RouterLink}>
-                Stwórz plan
-              </Button>
+              <Stack
+                spacing={[4, 8]}
+                direction={['column', 'row']}
+                alignItems={[null, 'center']}
+              >
+                <Button size="lg" to="/plan" as={RouterLink}>
+                  Stwórz plan
+                </Button>
+                <Link fontSize="lg" to="/emerytura" as={RouterLink}>
+                  Dowiedz się więcej
+                </Link>
+              </Stack>
             </Box>
             <Box flex="1">
               <chakra.img src={banker}></chakra.img>
@@ -86,30 +81,30 @@ const Home: React.FC = () => {
             mb={16}
             alignItems="flex-start"
           >
-            <InfoBox icon={health} title="Kondycja ubezpieczeń społecznych">
+            <InfoIconBox icon={health} title="Kondycja ubezpieczeń społecznych">
               Prognozuje się, że za ok. 30 lat emerytura z ZUS będzie wynosić
               nie więcej niż 30% ostatniego wynagrodzenia. W takim scenariuszu
-              osoba zarabiająca 5 000 złotych otrzyma około 1 500 złotych
-              emerytury.
-            </InfoBox>
-            <InfoBox
+              osoba zarabiająca 5&nbsp;000 złotych otrzyma około 1&nbsp;500
+              złotych emerytury.
+            </InfoIconBox>
+            <InfoIconBox
               icon={clock}
               title="Horyzont czasowy działa na twoją korzyść"
             >
               Im wcześniej zaczniesz oszczędzać, tym mniej będziesz musiał
               odkładać w każdym miesiącu przed emeryturą. To tak proste.
-            </InfoBox>
-            <InfoBox icon={weather} title="Dbanie o własną przyszłość">
+            </InfoIconBox>
+            <InfoIconBox icon={weather} title="Dbanie o własną przyszłość">
               Określając własny plan emerytalny uświadamiasz sobie ile tak
               naprawdę jesteś w stanie zgromadzić. Mając tę wiedzę, możesz wziąć
               sprawy w swoje ręce.
-            </InfoBox>
-            <InfoBox icon={stock} title="Droga do wolności finansowej">
+            </InfoIconBox>
+            <InfoIconBox icon={stock} title="Droga do wolności finansowej">
               Gromadząc kapitał w określonej wysokości oraz inwestując go
               zgodnie z obraną strategią można dojść do momentu, w którym zwroty
               z inwestycji pokrywają koszty życia. Od tej chwili praca zarobkowa
               jest opcjonalna.
-            </InfoBox>
+            </InfoIconBox>
           </SimpleGrid>
           <Flex justifyContent="center">
             <Button size="lg" as={RouterLink} to="/emerytura">

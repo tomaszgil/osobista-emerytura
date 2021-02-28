@@ -3,6 +3,7 @@ import Button from './button'
 import Link from './link'
 import Heading from './heading'
 import Input from './input'
+import Alert from './alert'
 
 const colors = {
   brand: {
@@ -31,6 +32,7 @@ const theme = extendTheme({
     Link,
     Heading,
     Input,
+    Alert,
   },
 })
 
