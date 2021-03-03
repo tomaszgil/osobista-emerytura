@@ -9,9 +9,13 @@ import {
   Heading,
   Button,
   Text,
+  Alert,
+  AlertIcon,
   Divider,
   SimpleGrid,
+  Link,
 } from '@chakra-ui/react'
+import { Link as RouterLink } from 'react-router-dom'
 import { formatCurrency } from '../utils/format'
 import { Formik, Form } from 'formik'
 import {
@@ -157,7 +161,7 @@ const PlanPreview: React.FC<{
               )}
             </Formik>
           </Box>
-          <Box flex="2" py={8}>
+          <Box flex="2" pt={8}>
             <Stack
               mb={16}
               spacing={8}
@@ -185,6 +189,13 @@ const PlanPreview: React.FC<{
                 Kapitał
               </Heading>
               <PlanChart data={plan.series} />
+              <Alert colorScheme="purple" mt={8}>
+                <AlertIcon />
+                Chcesz wiedzieć jak został obliczony twój plan?&nbsp;
+                <Link to="/emerytura" as={RouterLink}>
+                  Dowiedz się więcej
+                </Link>
+              </Alert>
             </Box>
           </Box>
         </Stack>

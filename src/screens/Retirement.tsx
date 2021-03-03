@@ -57,11 +57,10 @@ const Home: React.FC = () => {
         <PageContainer>
           <Container maxWidth="3xl">
             <VStack spacing={16}>
-              <Box as="article">
+              <VStack as="article" spacing={8}>
                 <InfoIconBox
                   icon={health}
                   title="Kondycja ubezpieczeń społecznych"
-                  mb={8}
                 >
                   W 2015 roku na wypłatę emerytur z ZUS potrzebował dotacji ze
                   Skarbu Państwa w wysokości 42&nbsp;mld złotych (co stanowiło
@@ -74,7 +73,6 @@ const Home: React.FC = () => {
                 <InfoIconBox
                   icon={clock}
                   title="Horyzont czasowy działa na twoją korzyść"
-                  mb={8}
                 >
                   W tak długim okresie, jakim może być oszczędzanie na
                   emeryturę, procent składany diametralnie zmienia obraz
@@ -84,11 +82,7 @@ const Home: React.FC = () => {
                   zaczniesz oszczędzać, tym mniej będziesz musiał odkładać w
                   każdym miesiącu przed emeryturą. To tak proste.
                 </InfoIconBox>
-                <InfoIconBox
-                  icon={weather}
-                  title="Dbanie o własną przyszłość"
-                  mb={8}
-                >
+                <InfoIconBox icon={weather} title="Dbanie o własną przyszłość">
                   Określając własny plan emerytalny uświadamiasz sobie ile tak
                   naprawdę jesteś w stanie zgromadzić. Może się okazać, że
                   niewielkim kosztem i systematycznością możesz znacząco
@@ -96,11 +90,7 @@ const Home: React.FC = () => {
                   momencie przejścia na emeryturę. Mając tę wiedzę, możesz wziąć
                   sprawy w swoje ręce.
                 </InfoIconBox>
-                <InfoIconBox
-                  icon={stock}
-                  title="Droga do wolności finansowej"
-                  mb={8}
-                >
+                <InfoIconBox icon={stock} title="Droga do wolności finansowej">
                   Gromadząc kapitał w określonej wysokości oraz inwestując go
                   zgodnie z obraną strategią można dojść do momentu, w którym
                   zwroty z inwestycji pokrywają koszty życia. Określ wartość
@@ -108,7 +98,7 @@ const Home: React.FC = () => {
                   twoje koszty życia. Od tej chwili praca zarobkowa jest
                   opcjonalna.
                 </InfoIconBox>
-              </Box>
+              </VStack>
               <Box as="article">
                 <Heading fontSize="3xl" mb={8}>
                   Model obliczeń
