@@ -16,6 +16,7 @@ import {
   chakra,
   Container,
   VStack,
+  Link,
 } from '@chakra-ui/react'
 import retirement from '../assets/retirement.svg'
 import clock from '../assets/clock.svg'
@@ -56,14 +57,10 @@ const Home: React.FC = () => {
         <PageContainer>
           <Container maxWidth="3xl">
             <VStack spacing={16}>
-              <Box as="article">
-                <Heading fontSize="3xl" mb={8}>
-                  Dlaczego osobista emerytura?
-                </Heading>
+              <VStack as="article" spacing={8}>
                 <InfoIconBox
                   icon={health}
                   title="Kondycja ubezpieczeń społecznych"
-                  mb={8}
                 >
                   W 2015 roku na wypłatę emerytur z ZUS potrzebował dotacji ze
                   Skarbu Państwa w wysokości 42&nbsp;mld złotych (co stanowiło
@@ -76,7 +73,6 @@ const Home: React.FC = () => {
                 <InfoIconBox
                   icon={clock}
                   title="Horyzont czasowy działa na twoją korzyść"
-                  mb={8}
                 >
                   W tak długim okresie, jakim może być oszczędzanie na
                   emeryturę, procent składany diametralnie zmienia obraz
@@ -86,11 +82,7 @@ const Home: React.FC = () => {
                   zaczniesz oszczędzać, tym mniej będziesz musiał odkładać w
                   każdym miesiącu przed emeryturą. To tak proste.
                 </InfoIconBox>
-                <InfoIconBox
-                  icon={weather}
-                  title="Dbanie o własną przyszłość"
-                  mb={8}
-                >
+                <InfoIconBox icon={weather} title="Dbanie o własną przyszłość">
                   Określając własny plan emerytalny uświadamiasz sobie ile tak
                   naprawdę jesteś w stanie zgromadzić. Może się okazać, że
                   niewielkim kosztem i systematycznością możesz znacząco
@@ -98,11 +90,7 @@ const Home: React.FC = () => {
                   momencie przejścia na emeryturę. Mając tę wiedzę, możesz wziąć
                   sprawy w swoje ręce.
                 </InfoIconBox>
-                <InfoIconBox
-                  icon={stock}
-                  title="Droga do wolności finansowej"
-                  mb={8}
-                >
+                <InfoIconBox icon={stock} title="Droga do wolności finansowej">
                   Gromadząc kapitał w określonej wysokości oraz inwestując go
                   zgodnie z obraną strategią można dojść do momentu, w którym
                   zwroty z inwestycji pokrywają koszty życia. Określ wartość
@@ -110,7 +98,7 @@ const Home: React.FC = () => {
                   twoje koszty życia. Od tej chwili praca zarobkowa jest
                   opcjonalna.
                 </InfoIconBox>
-              </Box>
+              </VStack>
               <Box as="article">
                 <Heading fontSize="3xl" mb={8}>
                   Model obliczeń
@@ -157,6 +145,78 @@ const Home: React.FC = () => {
                   Dlatego warto podać oczekiwane stopy zwrotu z inwestycji jako
                   procent ponad inflację oraz z uwzględnieniem podatku.
                 </Alert>
+              </Box>
+              <Box as="article">
+                <Heading fontSize="3xl" mb={8}>
+                  Polecane materiały
+                </Heading>
+                <VStack spacing={8}>
+                  <Box>
+                    <Heading fontSize="2xl" mb={4}>
+                      Finansowy ninja (i blog jakoszczedzacpieniadze.pl)
+                    </Heading>
+                    <Text mb={4}>
+                      Książka, która powinna być podręcznikiem w nauczaniu
+                      szkolnym i jednocześnie zainspirowała powstanie tej
+                      strony. Solidna i kompletna podstawa finansów osobistych,
+                      od podejścia do piedzniędzy, przez poznanie i zrozumienie
+                      produktów finansowych, aż do oszczędzania oraz
+                      inwestowania. Michał Szafrański, autor książki, prowadzi
+                      również bloga o tematyce finansów osobistych, który
+                      stanowi prawdziwą skarbnicę wiedzy. Zarówno w książce jak
+                      i na blogu można znaleźć rozdziały i artykuły dedykowane
+                      tematowi osobistej emerytury i wolności finansowej.
+                    </Text>
+                    <Text mb={2}>
+                      <Link target="_blank" href="https://finansowyninja.pl/">
+                        Finansowy ninja
+                      </Link>
+                    </Text>
+                    <Text mb={2}>
+                      <Link
+                        target="_blank"
+                        href="https://jakoszczedzacpieniadze.pl/"
+                      >
+                        Blog Jak oszczędzać pieniądze
+                      </Link>
+                    </Text>
+                  </Box>
+                  <Box>
+                    <Heading fontSize="2xl" mb={4}>
+                      Fiananse bardzo osobiste
+                    </Heading>
+                    <Text mb={4}>
+                      Blog Marcina Iwucia, również o tematyce finansów
+                      osobistych. Na stronie można znaleźć wiele artykułów
+                      poruszających tematykę emerytury, zarówno dotyczących
+                      państwowej emerytury oraz emerytury osobistej.
+                    </Text>
+                    <Text mb={2}>
+                      <Link target="_blank" href="https://marciniwuc.com/">
+                        Finanse bardzo osobiste
+                      </Link>
+                    </Text>
+                  </Box>
+                  <Box>
+                    <Heading fontSize="2xl" mb={4}>
+                      App Funds
+                    </Heading>
+                    <Text mb={4}>
+                      Blog o tematyce związanej z inwestowaniem i pomnażaniem
+                      oszczędności, autorstwa Zbyszka Papińskiego. Szerokie
+                      spojrzenie na różne produkty finansowe, przez lokaty,
+                      konta oszczędnościowe, giełdę czy surowce.
+                    </Text>
+                    <Text mb={2}>
+                      <Link
+                        target="_blank"
+                        href="https://appfunds.blogspot.com/"
+                      >
+                        App Funds
+                      </Link>
+                    </Text>
+                  </Box>
+                </VStack>
               </Box>
             </VStack>
           </Container>
