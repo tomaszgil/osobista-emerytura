@@ -16,6 +16,7 @@ import {
   chakra,
   Container,
   VStack,
+  Link,
 } from '@chakra-ui/react'
 import retirement from '../assets/retirement.svg'
 import clock from '../assets/clock.svg'
@@ -57,9 +58,6 @@ const Home: React.FC = () => {
           <Container maxWidth="3xl">
             <VStack spacing={16}>
               <Box as="article">
-                <Heading fontSize="3xl" mb={8}>
-                  Dlaczego osobista emerytura?
-                </Heading>
                 <InfoIconBox
                   icon={health}
                   title="Kondycja ubezpieczeń społecznych"
@@ -157,6 +155,78 @@ const Home: React.FC = () => {
                   Dlatego warto podać oczekiwane stopy zwrotu z inwestycji jako
                   procent ponad inflację oraz z uwzględnieniem podatku.
                 </Alert>
+              </Box>
+              <Box as="article">
+                <Heading fontSize="3xl" mb={8}>
+                  Polecane materiały
+                </Heading>
+                <VStack spacing={8}>
+                  <Box>
+                    <Heading fontSize="2xl" mb={4}>
+                      Finansowy ninja (i blog jakoszczedzacpieniadze.pl)
+                    </Heading>
+                    <Text mb={4}>
+                      Książka, która powinna być podręcznikiem w nauczaniu
+                      szkolnym i jednocześnie zainspirowała powstanie tej
+                      strony. Solidna i kompletna podstawa finansów osobistych,
+                      od podejścia do piedzniędzy, przez poznanie i zrozumienie
+                      produktów finansowych, aż do oszczędzania oraz
+                      inwestowania. Michał Szafrański, autor książki, prowadzi
+                      również bloga o tematyce finansów osobistych, który
+                      stanowi prawdziwą skarbnicę wiedzy. Zarówno w książce jak
+                      i na blogu można znaleźć rozdziały i artykuły dedykowane
+                      tematowi osobistej emerytury i wolności finansowej.
+                    </Text>
+                    <Text mb={2}>
+                      <Link target="_blank" href="https://finansowyninja.pl/">
+                        Finansowy ninja
+                      </Link>
+                    </Text>
+                    <Text mb={2}>
+                      <Link
+                        target="_blank"
+                        href="https://jakoszczedzacpieniadze.pl/"
+                      >
+                        Blog Jak oszczędzać pieniądze
+                      </Link>
+                    </Text>
+                  </Box>
+                  <Box>
+                    <Heading fontSize="2xl" mb={4}>
+                      Fiananse bardzo osobiste
+                    </Heading>
+                    <Text mb={4}>
+                      Blog Marcina Iwucia, również o tematyce finansów
+                      osobistych. Na stronie można znaleźć wiele artykułów
+                      poruszających tematykę emerytury, zarówno dotyczących
+                      państwowej emerytury oraz emerytury osobistej.
+                    </Text>
+                    <Text mb={2}>
+                      <Link target="_blank" href="https://marciniwuc.com/">
+                        Finanse bardzo osobiste
+                      </Link>
+                    </Text>
+                  </Box>
+                  <Box>
+                    <Heading fontSize="2xl" mb={4}>
+                      App Funds
+                    </Heading>
+                    <Text mb={4}>
+                      Blog o tematyce związanej z inwestowaniem i pomnażaniem
+                      oszczędności, autorstwa Zbyszka Papińskiego. Szerokie
+                      spojrzenie na różne produkty finansowe, przez lokaty,
+                      konta oszczędnościowe, giełdę czy surowce.
+                    </Text>
+                    <Text mb={2}>
+                      <Link
+                        target="_blank"
+                        href="https://appfunds.blogspot.com/"
+                      >
+                        App Funds
+                      </Link>
+                    </Text>
+                  </Box>
+                </VStack>
               </Box>
             </VStack>
           </Container>
