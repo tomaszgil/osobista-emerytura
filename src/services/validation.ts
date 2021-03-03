@@ -5,13 +5,13 @@ function validateRequired(value: any) {
 }
 
 function validateAgeRange(value: number) {
-  if (value < 18 || value > 100) {
+  if (Number(value) < 18 || Number(value) > 100) {
     return 'Wartość powinna być z przedziału 18 - 100'
   }
 }
 
 export function validateAge(values: PlanFormValues): string | undefined {
-  const { age } = values
+  const { age, lifeExpectancy } = values
   const requiredError = validateRequired(age)
   if (requiredError) {
     return requiredError
@@ -21,12 +21,16 @@ export function validateAge(values: PlanFormValues): string | undefined {
   if (ageRangeError) {
     return ageRangeError
   }
+
+  if (age && Number(lifeExpectancy) <= Number(age)) {
+    return 'Wiek musi być mniejszy od oczekiwanej długości życia'
+  }
 }
 
 export function validateRetirementAge(
   values: PlanFormValues
 ): string | undefined {
-  const { age, retirementAge } = values
+  const { age, retirementAge, lifeExpectancy } = values
   const requiredError = validateRequired(retirementAge)
   if (requiredError) {
     return requiredError
@@ -37,8 +41,12 @@ export function validateRetirementAge(
     return ageRangeError
   }
 
-  if (retirementAge && retirementAge <= age) {
+  if (retirementAge && Number(retirementAge) <= Number(age)) {
     return 'Wiek emerytalny musi być większy od aktualnego wieku'
+  }
+
+  if (retirementAge && Number(lifeExpectancy) <= Number(retirementAge)) {
+    return 'Wiek emerytalny musi być mniejszy od oczekiwanej długości życia'
   }
 }
 
@@ -56,7 +64,7 @@ export function validateLifeExpectancy(
     return ageRangeError
   }
 
-  if (lifeExpectancy && lifeExpectancy <= retirementAge) {
+  if (lifeExpectancy && Number(lifeExpectancy) <= Number(retirementAge)) {
     return 'Oczekiwana długość życia musi być większa od wieku emerytalnego'
   }
 }
@@ -64,9 +72,14 @@ export function validateLifeExpectancy(
 export function validateMonthlyRetirement(
   values: PlanFormValues
 ): string | undefined {
-  const requiredError = validateRequired(values.monthlyRetirement)
+  const { monthlyRetirement } = values
+  const requiredError = validateRequired(monthlyRetirement)
   if (requiredError) {
     return requiredError
+  }
+
+  if (Number(monthlyRetirement) < 0) {
+    return 'Wysokość miesięcznej emerytury powinna być nieujemna'
   }
 }
 

@@ -191,10 +191,12 @@ const PlanPreview: React.FC<{
               <PlanChart data={plan.series} />
               <Alert colorScheme="purple" mt={8}>
                 <AlertIcon />
-                Chcesz wiedzieć jak został obliczony twój plan?&nbsp;
-                <Link to="/emerytura" as={RouterLink}>
-                  Dowiedz się więcej
-                </Link>
+                <Text>
+                  Chcesz wiedzieć jak został obliczony twój plan?&nbsp;
+                  <Link to="/emerytura" as={RouterLink}>
+                    Dowiedz się więcej
+                  </Link>
+                </Text>
               </Alert>
             </Box>
           </Box>
