@@ -53,6 +53,15 @@ const Home: React.FC = () => {
                   www.freepik.com
                 </Link>
               </Text>
+              <Text mb={4}>
+                Tree vector created by pch.vector -{' '}
+                <Link
+                  target="_blank"
+                  href="https://www.freepik.com/vectors/tree"
+                >
+                  www.freepik.com
+                </Link>
+              </Text>
             </Box>
             <Box flex="1">
               <Heading fontSize="2xl" mb={4}>

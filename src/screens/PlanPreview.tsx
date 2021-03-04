@@ -16,7 +16,6 @@ import {
   Link,
 } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
-import { formatCurrency } from '../utils/format'
 import { Formik, Form } from 'formik'
 import {
   validateAge,
@@ -36,7 +35,8 @@ import MonthlyRetirementInput from './planPreview/MonthlyRetirementInput'
 import ReturnOnInvestmentDuringSavingInput from './planPreview/ReturnOnInvestmentDuringSavingInput'
 import ReturnOnInvestmentDuringRetirementInput from './planPreview/ReturnOnInvestmentDuringRetirementInput'
 import CurrentSavingsInput from './planPreview/CurrentSavingsInput'
-import PlanChart from './planPreview/PlanChart'
+import PlanSummary from './planPreview/PlanSummary'
+import PlanAlert from './planPreview/PlanAlert'
 
 const validate = combineValidators([
   { name: 'age', validation: validateAge },
@@ -68,6 +68,8 @@ const PlanPreview: React.FC<{
   values: PlanFormValues
   setValues: Function
 }> = ({ plan, resetPlan, values, setValues }) => {
+  const isRetirementPlanDisplayed = Number(plan.payment) > 0
+
   return (
     <>
       <Header />
@@ -161,44 +163,23 @@ const PlanPreview: React.FC<{
               )}
             </Formik>
           </Box>
-          <Box flex="2" pt={8}>
-            <Stack
-              mb={16}
-              spacing={8}
-              direction={{ md: 'row', base: 'column' }}
-            >
-              <Box flex="1">
-                <Text fontSize="2xl" color="brand.900" fontWeight="bold" mb={2}>
-                  Wysokość miesięcznych oszczędności
-                </Text>
-                <Text fontSize="4xl" color="brand.700" fontWeight="bold">
-                  {formatCurrency(plan.payment)}
-                </Text>
+          <Box flex="2">
+            {isRetirementPlanDisplayed ? (
+              <Box mt={8}>
+                <PlanSummary plan={plan} />
               </Box>
-              <Box flex="1">
-                <Text fontSize="2xl" color="brand.900" fontWeight="bold" mb={2}>
-                  Oszczędności w chwili przejścia na emeryturę
-                </Text>
-                <Text fontSize="4xl" color="brand.700" fontWeight="bold">
-                  {formatCurrency(plan.totalSavings)}
-                </Text>
-              </Box>
-            </Stack>
-            <Box sx={{ overflow: 'hidden' }}>
-              <Heading fontSize="2xl" mb={8}>
-                Kapitał
-              </Heading>
-              <PlanChart data={plan.series} />
-              <Alert colorScheme="purple" mt={8}>
-                <AlertIcon />
-                <Text>
-                  Chcesz wiedzieć jak został obliczony twój plan?&nbsp;
-                  <Link to="/emerytura" as={RouterLink}>
-                    Dowiedz się więcej
-                  </Link>
-                </Text>
-              </Alert>
-            </Box>
+            ) : (
+              <PlanAlert payment={Number(plan.payment) * -1} />
+            )}
+            <Alert colorScheme="purple" mt={8}>
+              <AlertIcon />
+              <Text>
+                Chcesz wiedzieć jak został obliczony twój plan?&nbsp;
+                <Link to="/emerytura" as={RouterLink}>
+                  Dowiedz się więcej
+                </Link>
+              </Text>
+            </Alert>
           </Box>
         </Stack>
       </PageContainer>
