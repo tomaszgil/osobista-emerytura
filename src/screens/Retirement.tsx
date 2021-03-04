@@ -2,18 +2,17 @@ import React from 'react'
 import PageContainer from '../components/PageContainer'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import ClippedHero from '../components/ClippedHero'
 import InfoIconBox from '../components/InfoIconBox'
 import {
   Box,
   Heading,
-  Stack,
   Text,
   Divider,
   ListItem,
   OrderedList,
   Alert,
   AlertIcon,
-  chakra,
   Container,
   VStack,
   Link,
@@ -29,29 +28,15 @@ const Home: React.FC = () => {
     <>
       <Box background="purple.50" overflow="hidden">
         <Header />
-        <PageContainer>
-          <Box pt={16} pb={24}>
-            <Stack direction={{ md: 'row', base: 'column' }} spacing={8}>
-              <Box flex="1">
-                <Heading fontSize="4xl" mb={4}>
-                  Osobista emerytura
-                </Heading>
-                <Text fontSize="xl">
-                  Dlaczego warto stworzyć swój własny plan emerytalny. Dowiedz
-                  się więcej na temat sposóbu, w jaki taki plan powstaje.
-                </Text>
-              </Box>
-              <Box flex="1" position="relative">
-                <chakra.img
-                  src={retirement}
-                  position={{ md: 'absolute' }}
-                  top={{ lg: '-4em' }}
-                  width="100%"
-                ></chakra.img>
-              </Box>
-            </Stack>
-          </Box>
-        </PageContainer>
+        <ClippedHero imgSrc={retirement}>
+          <Heading fontSize="4xl" mb={4}>
+            Osobista emerytura
+          </Heading>
+          <Text fontSize="xl">
+            Dlaczego warto stworzyć swój własny plan emerytalny. Dowiedz się
+            więcej na temat sposóbu, w jaki taki plan powstaje.
+          </Text>
+        </ClippedHero>
       </Box>
       <Box py={24}>
         <PageContainer>

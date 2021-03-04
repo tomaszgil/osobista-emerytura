@@ -8,9 +8,10 @@ import {
   DrawerCloseButton,
   DrawerBody,
   useDisclosure,
+  Flex,
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
-import { NavLinks } from './NavLinks'
+import { AdditionalNavLinks, NavLinks } from './NavLinks'
 
 const MobileNav: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -36,9 +37,18 @@ const MobileNav: React.FC = () => {
           <DrawerContent>
             <DrawerCloseButton />
             <DrawerBody>
-              <Stack as="nav" py={8} spacing={6}>
-                <NavLinks />
-              </Stack>
+              <Flex
+                direction="column"
+                justifyContent="space-between"
+                height="100%"
+              >
+                <Stack as="nav" py={8} spacing={6}>
+                  <NavLinks />
+                </Stack>
+                <Stack as="nav" py={8} spacing={6}>
+                  <AdditionalNavLinks />
+                </Stack>
+              </Flex>
             </DrawerBody>
           </DrawerContent>
         </DrawerOverlay>

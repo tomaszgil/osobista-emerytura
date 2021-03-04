@@ -2,23 +2,22 @@ import React from 'react'
 import PageContainer from '../components/PageContainer'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import ClippedHero from '../components/ClippedHero'
 import { Box, Heading, Link, Text, Divider, SimpleGrid } from '@chakra-ui/react'
 
-const Home: React.FC = () => {
+const Assets: React.FC = () => {
   return (
     <>
       <Box background="purple.50">
         <Header />
-        <PageContainer>
-          <Box pt={16} pb={24}>
-            <Heading fontSize="4xl">Wykorzystane zasoby</Heading>
-          </Box>
-        </PageContainer>
+        <ClippedHero>
+          <Heading fontSize="4xl">Wykorzystane zasoby</Heading>
+        </ClippedHero>
       </Box>
       <Box py={24}>
         <PageContainer>
           <SimpleGrid
-            columns={{ md: 2, lg: 4 }}
+            columns={[null, null, 2]}
             spacing={8}
             alignItems="flex-start"
           >
@@ -62,6 +61,15 @@ const Home: React.FC = () => {
                   www.freepik.com
                 </Link>
               </Text>
+              <Text mb={4}>
+                Woman vector created by pch.vector -{' '}
+                <Link
+                  target="_blank"
+                  href="https://www.freepik.com/vectors/woman"
+                >
+                  www.freepik.com
+                </Link>
+              </Text>
             </Box>
             <Box flex="1">
               <Heading fontSize="2xl" mb={4}>
@@ -95,4 +103,4 @@ const Home: React.FC = () => {
   )
 }
 
-export default Home
+export default Assets
