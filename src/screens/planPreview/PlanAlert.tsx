@@ -4,10 +4,12 @@ import {
   Alert,
   AlertTitle,
   AlertDescription,
-  chakra,
+  Skeleton,
+  AspectRatio,
 } from '@chakra-ui/react'
 import { formatCurrency } from '../../utils/format'
 import profit from '../../assets/profit.svg'
+import SuspenseImg from '../../components/SuspenseImg'
 
 const PlanAlert: React.FC<{
   payment: number
@@ -20,11 +22,17 @@ const PlanAlert: React.FC<{
       alignItems="center"
       justifyContent="center"
       textAlign="center"
-      pt={0}
-      pb={8}
-      px={8}
+      p={8}
     >
-      <chakra.img src={profit} maxWidth="md"></chakra.img>
+      <React.Suspense
+        fallback={
+          <AspectRatio width="md" ratio={4 / 2} mb={4}>
+            <Skeleton width="100%" height="100%" colorScheme="orange" />
+          </AspectRatio>
+        }
+      >
+        <SuspenseImg src={profit} maxWidth="md" mt={-8} />
+      </React.Suspense>
       <AlertTitle mb={4} fontSize="2xl">
         Nie musisz oszczędzać na emeryturę!
       </AlertTitle>

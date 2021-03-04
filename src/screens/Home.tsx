@@ -3,6 +3,7 @@ import PageContainer from '../components/PageContainer'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import InfoIconBox from '../components/InfoIconBox'
+import SuspenseImg from '../components/SuspenseImg'
 import {
   Stack,
   Box,
@@ -14,7 +15,8 @@ import {
   Flex,
   Divider,
   SimpleGrid,
-  chakra,
+  AspectRatio,
+  Skeleton,
 } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
 import banker from '../assets/banker.svg'
@@ -58,7 +60,15 @@ const Home: React.FC = () => {
               </Stack>
             </Box>
             <Box flex="1">
-              <chakra.img src={banker}></chakra.img>
+              <React.Suspense
+                fallback={
+                  <AspectRatio width="100%" ratio={3 / 2}>
+                    <Skeleton width="100%" height="100%" />
+                  </AspectRatio>
+                }
+              >
+                <SuspenseImg src={banker} />
+              </React.Suspense>
             </Box>
           </Stack>
         </PageContainer>
