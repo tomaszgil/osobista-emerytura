@@ -15,6 +15,7 @@ const PlanScreen = React.lazy(
 )
 const NotFoundScreen = React.lazy(() => import('./screens/NotFound'))
 const AssetsScreen = React.lazy(() => import('./screens/Assets'))
+const ContactScreen = React.lazy(() => import('./screens/Contact'))
 const RetirementScreen = React.lazy(() => import('./screens/Retirement'))
 
 initialize()
@@ -36,6 +37,9 @@ export const App: React.FC = () => (
             </Route>
             <Route path="/emerytura">
               <RetirementScreen />
+            </Route>
+            <Route path="/kontakt">
+              <ContactScreen />
             </Route>
             <Route>
               <NotFoundScreen />

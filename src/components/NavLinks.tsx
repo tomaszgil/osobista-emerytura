@@ -21,5 +21,8 @@ export const AdditionalNavLinks: React.FC = () => (
     <Link to="/zasoby" as={RouterLink}>
       Wykorzystane zasoby
     </Link>
+    <Link to="/kontakt" as={RouterLink}>
+      Kontakt
+    </Link>
   </>
 )

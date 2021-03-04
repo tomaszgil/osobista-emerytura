@@ -40,11 +40,11 @@ const NotFound: React.FC = () => {
               alignItems={[null, 'center']}
               direction={['column', 'row']}
             >
-              <Button size="lg" to="/plan" as={RouterLink}>
-                Stwórz plan
-              </Button>
-              <Link fontSize="lg" to="/" as={RouterLink}>
+              <Button size="lg" to="/" as={RouterLink}>
                 Wróć na stronę główną
+              </Button>
+              <Link fontSize="lg" to="/kontakt" as={RouterLink}>
+                Skontaktuj się z nami
               </Link>
             </Stack>
           </Box>
