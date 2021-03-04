@@ -9,6 +9,7 @@ import {
   Button,
   Text,
   Divider,
+  Link,
   chakra,
 } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
@@ -34,13 +35,17 @@ const NotFound: React.FC = () => {
               Przepraszamy, nie znaleźliśmy podanej strony. Możliwe, że została
               przeniesiona lub nigdy nie istniała.
             </Text>
-            <Stack spacing={2} direction={['column', 'row']}>
+            <Stack
+              spacing={[2, 8]}
+              alignItems={[null, 'center']}
+              direction={['column', 'row']}
+            >
               <Button size="lg" to="/plan" as={RouterLink}>
                 Stwórz plan
               </Button>
-              <Button variant="ghost" size="lg" to="/" as={RouterLink}>
+              <Link fontSize="lg" to="/" as={RouterLink}>
                 Wróć na stronę główną
-              </Button>
+              </Link>
             </Stack>
           </Box>
           <Box flex="1">
