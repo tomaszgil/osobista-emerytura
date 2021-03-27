@@ -4,7 +4,24 @@ function validateRequired(value: any) {
   }
 }
 
-function validateAgeRange(value: number) {
+function validateNumber(value: any) {
+  if (Number.isNaN(Number(value))) {
+    return 'Wymagana wartość liczbowa'
+  }
+}
+
+function validateInteger(value: any) {
+  if (!Number.isInteger(Number(value))) {
+    return 'Wymagana wartość całkowita'
+  }
+}
+
+function validateAgeRange(value: any) {
+  const integerError = validateInteger(value)
+  if (integerError) {
+    return integerError
+  }
+
   if (Number(value) < 18 || Number(value) > 100) {
     return 'Wartość powinna być z przedziału 18 - 100'
   }
@@ -78,6 +95,11 @@ export function validateMonthlyRetirement(
     return requiredError
   }
 
+  const numberError = validateNumber(monthlyRetirement)
+  if (numberError) {
+    return numberError
+  }
+
   if (Number(monthlyRetirement) < 0) {
     return 'Wysokość miesięcznej emerytury powinna być nieujemna'
   }
@@ -90,6 +112,11 @@ export function validateReturnOnInvestmentDuringSaving(
   const requiredError = validateRequired(returnOnInvestmentDuringSaving)
   if (requiredError) {
     return requiredError
+  }
+
+  const numberError = validateNumber(returnOnInvestmentDuringSaving)
+  if (numberError) {
+    return numberError
   }
 
   if (Number(returnOnInvestmentDuringSaving) < 0) {
@@ -106,6 +133,11 @@ export function validateReturnOnInvestmentDuringRetirement(
     return requiredError
   }
 
+  const numberError = validateNumber(returnOnInvestmentDuringRetirement)
+  if (numberError) {
+    return numberError
+  }
+
   if (Number(returnOnInvestmentDuringRetirement) < 0) {
     return 'Zwrot z inwestycji powinien być nieujemny'
   }
@@ -118,6 +150,11 @@ export function validateCurrentSavings(
   const requiredError = validateRequired(currentSavings)
   if (requiredError) {
     return requiredError
+  }
+
+  const numberError = validateNumber(currentSavings)
+  if (numberError) {
+    return numberError
   }
 
   if (Number(currentSavings) < 0) {
