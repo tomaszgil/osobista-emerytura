@@ -4,21 +4,9 @@ Welcome, and thank you for your interest in contributing to Osobista Emerytura!
 
 There are many ways in which you can contribute, beyond writing code. The goal of this document is to provide a high-level overview of how you can get involved.
 
-## Asking Questions
-
-Have a question? Rather than opening an issue, please ask away on [Stack Overflow](https://stackoverflow.com/questions/tagged/vscode) using the tag `vscode`.
-
-The active community will be eager to assist you. Your well-worded question will serve as a resource to others searching for help.
-
-## Providing Feedback
-
-Your comments and feedback are welcome, and the development team is available via a handful of different channels.
-
-See the [Feedback Channels](https://github.com/microsoft/vscode/wiki/Feedback-Channels) wiki page for details on how to share your thoughts.
-
 ## Reporting Issues
 
-Have you identified a reproducible problem? Have a feature request? We want to hear about it! Here's how you can make reporting your issue as effective as possible.
+Have you identified a reproducible problem? Have a feature request? Do you have a general feedback or want to ask a question? We want to hear about it! Here's how you can make reporting your issue as effective as possible.
 
 ### Look For an Existing Issue
 
@@ -39,15 +27,9 @@ Do not add your issue as a comment to an existing issue unless it's for the iden
 
 The more information you can provide, the more likely someone will be successful at reproducing the issue and finding a fix.
 
-The built-in tool for reporting an issue, which you can access by using `Report Issue` in VS Code's Help menu, can help streamline this process by automatically providing the version of VS Code, all your installed extensions, and your system info. Additionally, the tool will search among existing issues to see if a similar issue already exists.
+Please include the following with each issue (if applicable):
 
-Please include the following with each issue:
-
-- Version of VS Code
-
-- Your operating system
-
-- List of extensions that you have installed
+- Your operating system and your browser
 
 - Reproducible steps (1... 2... 3...) that cause the issue
 
@@ -55,30 +37,21 @@ Please include the following with each issue:
 
 - Images, animations, or a link to a video showing the issue occurring
 
-- A code snippet that demonstrates the issue or a link to a code repository the developers can easily pull down to recreate the issue locally
+- Errors from the browser's console
 
-  - **Note:** Because the developers need to copy and paste the code snippet, including a code snippet as a media file (i.e. .gif) is not sufficient.
+## Contributing
 
-- Errors from the Dev Tools Console (open from the menu: Help > Toggle Developer Tools)
+If you are interested in writing code to fix issues or implement pending functionalities, you can follow the guidelines below.
 
-### Follow Your Issue
+1. Install Git and Node.js.
 
-Once submitted, your report will go into the [issue tracking](https://github.com/microsoft/vscode/wiki/Issue-Tracking) workflow. Be sure to understand what will happen next, so you know what to expect, and how to continue to assist throughout the process.
+1. Install yarn.
 
-## Automated Issue Management
+1. Clone the repository and create a new branch.
 
-We use GitHub Actions to help us manage issues. These Actions and their descriptions can be [viewed here](https://github.com/microsoft/vscode-github-triage-actions). Some examples of what these Actions do are:
+1. Run the development server (see intructions in [README.md](https://github.com/tomaszgil/osobista-emerytura/blob/main/README.md))
 
-- Automatically closes any issue marked `needs-more-info` if there has been no response in the past 7 days.
-- Automatically lock issues 45 days after they are closed.
-- Automatically implement the VS Code [feature request pipeline](https://github.com/microsoft/vscode/wiki/Issues-Triaging#managing-feature-requests).
-
-If you believe the bot got something wrong, please open a new issue and let us know.
-
-## Contributing Fixes
-
-If you are interested in writing code to fix issues,
-please see [How to Contribute](https://github.com/microsoft/vscode/wiki/How-to-Contribute) in the wiki.
+1. Submit a Pull Request from your branch to main.
 
 # Thank You!
 
