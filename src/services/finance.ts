@@ -12,6 +12,20 @@ export function PV(
   return (((1 - pvif) / rate) * payment - futureValue) / pvif
 }
 
+export function FV(
+  rate: number,
+  payment: number,
+  periods: number,
+  presentValue: number = 0
+) {
+  if (rate === 0) {
+    return -payment * periods - presentValue
+  }
+
+  const pvif = (1 + rate) ** periods
+  return (payment * (1 - pvif)) / rate - presentValue * pvif
+}
+
 export function PMT(
   rate: number,
   periods: number,

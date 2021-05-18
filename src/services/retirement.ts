@@ -20,6 +20,7 @@ function calculateRetirementPlan({
   returnOnInvestmentDuringRetirement,
   lifeExpectancy,
   currentSavings,
+  inflationRate,
 }: {
   age: number
   retirementAge: number
@@ -28,13 +29,21 @@ function calculateRetirementPlan({
   returnOnInvestmentDuringRetirement: number
   lifeExpectancy: number
   currentSavings: number
+  inflationRate: number
 }): RetirementPlanValues {
   const retirementMonthsNumber = (lifeExpectancy - retirementAge) * 12
-  const preRetirementMonthsNumber = (retirementAge - age) * 12
+  const preRetirementYearsNumber = retirementAge - age
+  const preRetirementMonthsNumber = preRetirementYearsNumber * 12
+  const monthlyRetirementAdjusted = finance.FV(
+    inflationRate,
+    0,
+    preRetirementYearsNumber,
+    monthlyRetirement * -1
+  )
   const retirementSavings =
     finance.PV(
       returnOnInvestmentDuringRetirement / 12,
-      monthlyRetirement,
+      monthlyRetirementAdjusted,
       retirementMonthsNumber
     ) * -1
   const payment = roundUp(
