@@ -34,7 +34,7 @@ const Home: React.FC = () => {
           </Heading>
           <Text fontSize="xl">
             Dlaczego warto stworzyć swój własny plan emerytalny. Dowiedz się
-            więcej na temat sposóbu, w jaki taki plan powstaje.
+            więcej na temat sposobu, w jaki taki plan powstaje.
           </Text>
         </ClippedHero>
       </Box>
@@ -79,7 +79,7 @@ const Home: React.FC = () => {
                   Gromadząc kapitał w określonej wysokości oraz inwestując go
                   zgodnie z obraną strategią można dojść do momentu, w którym
                   zwroty z inwestycji pokrywają koszty życia. Określ wartość
-                  kapitału, który, odpowiednio zainwestowany, pozwoli porkyć
+                  kapitału, który odpowiednio zainwestowany, pozwoli pokryć
                   twoje koszty życia. Od tej chwili praca zarobkowa jest
                   opcjonalna.
                 </InfoIconBox>
@@ -99,26 +99,26 @@ const Home: React.FC = () => {
                     zadeklarowaną przez ciebie kwotę.
                   </ListItem>
                   <ListItem>
-                    Następnie liczymy ile powinienieś odkładać miesięcznie, aby
+                    Następnie liczymy ile powinieneś odkładać miesięcznie, aby
                     do momentu przejścia na emeryturę zebrać kapitał wynikający
                     z poprzednich obliczeń.
                   </ListItem>
                 </OrderedList>
                 <Text mb={4}>
                   Aby dokonać tych kalkulacji potrzebujemy kilku istotnych
-                  informacji. Dla punku pierwszego będzie to wiek, w którym
+                  informacji. Dla punktu pierwszego będzie to wiek, w którym
                   chcesz przejść na emeryturę oraz długość życia (niestety,
                   musimy przyjąć jakieś założenie). Ta ostatnia to domyślnie 80
                   lat, co można zmienić po wygenerowaniu planu.
                 </Text>
                 <Text mb={4}>
-                  Dla punku drugiego potrzebujemy również wieku przejścia na
+                  Dla punktu drugiego potrzebujemy również wieku przejścia na
                   emeryturę oraz twojego obecnego wieku. Zakładamy, że zaczynasz
-                  oszczędzędzać już teraz - nie ma na co czekać!
+                  oszczędzać już teraz - nie ma na co czekać!
                 </Text>
                 <Text mb={4}>
                   W obu tych przypadkach potrzebujemy również średniej stopy
-                  zwrotu z inwestycji. Domyślnie przyjemujemy taką samą stopę
+                  zwrotu z inwestycji. Domyślnie przyjmujemy taką samą stopę
                   inwestycji w okresie przed przejściem na emeryturę i po
                   przejściu na emeryturę. W późniejszym etapie możesz dostosować
                   każdą z tych wartości indywidualnie.
@@ -144,7 +144,7 @@ const Home: React.FC = () => {
                       Książka, która powinna być podręcznikiem w nauczaniu
                       szkolnym i jednocześnie zainspirowała powstanie tej
                       strony. Solidna i kompletna podstawa finansów osobistych,
-                      od podejścia do piedzniędzy, przez poznanie i zrozumienie
+                      od podejścia do pieniędzy, przez poznanie i zrozumienie
                       produktów finansowych, aż do oszczędzania oraz
                       inwestowania. Michał Szafrański, autor książki, prowadzi
                       również bloga o tematyce finansów osobistych, który
@@ -168,7 +168,7 @@ const Home: React.FC = () => {
                   </Box>
                   <Box>
                     <Heading fontSize="2xl" mb={4}>
-                      Fiananse bardzo osobiste
+                      Finanse bardzo osobiste
                     </Heading>
                     <Text mb={4}>
                       Blog Marcina Iwucia, również o tematyce finansów
