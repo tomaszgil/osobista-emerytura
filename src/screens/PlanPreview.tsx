@@ -26,6 +26,7 @@ import {
   validateLifeExpectancy,
   validateCurrentSavings,
   validateInflationRate,
+  validateTaxRate,
   combineValidators,
 } from '../services/validation'
 import { track } from '../utils/analytics'
@@ -37,6 +38,7 @@ import ReturnOnInvestmentDuringSavingInput from './planPreview/ReturnOnInvestmen
 import ReturnOnInvestmentDuringRetirementInput from './planPreview/ReturnOnInvestmentDuringRetirementInput'
 import CurrentSavingsInput from './planPreview/CurrentSavingsInput'
 import InflationRateInput from './planPreview/InflationRateInput'
+import TaxRateInput from './planPreview/TaxRateInput'
 import AdvancedSettingsSection from './planPreview/AdvancedSettingsSection'
 import PlanSummary from './planPreview/PlanSummary'
 import PlanAlert from './planPreview/PlanAlert'
@@ -56,6 +58,7 @@ const validate = combineValidators([
   },
   { name: 'currentSavings', validation: validateCurrentSavings },
   { name: 'inflationRate', validation: validateInflationRate },
+  { name: 'taxRate', validation: validateTaxRate },
 ])
 
 const hideForPrint = {
@@ -170,6 +173,7 @@ const PlanPreview: React.FC<{
                   <AdvancedSettingsSection>
                     <SimpleGrid spacing={4} columns={{ base: 1, md: 2, lg: 1 }}>
                       <InflationRateInput />
+                      <TaxRateInput />
                     </SimpleGrid>
                   </AdvancedSettingsSection>
                 </Form>

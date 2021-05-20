@@ -15,6 +15,7 @@ const initialValues = {
   currentSavings: '0',
   advancedSettings: false,
   inflationRate: '2.5',
+  taxRate: '19',
 }
 
 const PlanScreen: React.FC = () => {
@@ -37,6 +38,7 @@ const PlanScreen: React.FC = () => {
       inflationRate: values.advancedSettings
         ? Number(values.inflationRate) / 100
         : 0,
+      taxRate: values.advancedSettings ? Number(values.taxRate) / 100 : 0,
     }
     const plan = calculateRetirmentPlan(formValues)
 

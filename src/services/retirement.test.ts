@@ -11,6 +11,7 @@ test.each([
       lifeExpectancy: 87,
       currentSavings: 22000,
       inflationRate: 0,
+      taxRate: 0,
     },
     {
       payment: 1004.73,
@@ -27,6 +28,7 @@ test.each([
       lifeExpectancy: 87,
       currentSavings: 22000,
       inflationRate: 0,
+      taxRate: 0,
     },
     {
       payment: 347.57,
@@ -43,6 +45,7 @@ test.each([
       lifeExpectancy: 87,
       currentSavings: 22000,
       inflationRate: 0,
+      taxRate: 0,
     },
     {
       payment: 215.43,
@@ -59,10 +62,28 @@ test.each([
       lifeExpectancy: 87,
       currentSavings: 22000,
       inflationRate: 0.025,
+      taxRate: 0,
     },
     {
       payment: 365.67,
       totalSavings: 1054068.16,
+    },
+  ],
+  [
+    {
+      age: 28,
+      retirementAge: 67,
+      monthlyRetirement: 3000,
+      returnOnInvestmentDuringSaving: 0.065,
+      returnOnInvestmentDuringRetirement: 0.065,
+      lifeExpectancy: 87,
+      currentSavings: 22000,
+      inflationRate: 0.025,
+      taxRate: 0.19,
+    },
+    {
+      payment: 645.31,
+      totalSavings: 1649336,
     },
   ],
 ])('when passed %p returns %p', (args, result) => {
@@ -79,6 +100,7 @@ describe('correctly calculates series', () => {
     lifeExpectancy: 90,
     currentSavings: 100000,
     inflationRate: 0,
+    taxRate: 0,
   })
 
   test('equity and interest', () => {

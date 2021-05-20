@@ -177,6 +177,23 @@ export function validateInflationRate(
   }
 }
 
+export function validateTaxRate(values: PlanFormValues): string | undefined {
+  const { taxRate } = values
+  const requiredError = validateRequired(taxRate)
+  if (requiredError) {
+    return requiredError
+  }
+
+  const numberError = validateNumber(taxRate)
+  if (numberError) {
+    return numberError
+  }
+
+  if (Number(taxRate) < 0 || Number(taxRate) > 100) {
+    return 'Wartość powinna być z przedziału 0 - 100'
+  }
+}
+
 export function createStepValidator<Values>(
   steps: Array<{ name: string; validation?: Function }>
 ) {

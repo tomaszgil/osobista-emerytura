@@ -10,6 +10,7 @@ type PlanFormValues = {
   currentSavings: NumberInputValue
   advancedSettings: boolean
   inflationRate: NumberInputValue
+  taxRate: NumberInputValue
 }
 
 type RetirementPlanValues = {
