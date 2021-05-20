@@ -5,6 +5,7 @@ import Heading from './heading'
 import Input from './input'
 import Alert from './alert'
 import Skeleton from './skeleton'
+import Switch from './switch'
 
 const colors = {
   brand: {
@@ -35,6 +36,7 @@ const theme = extendTheme({
     Input,
     Alert,
     Skeleton,
+    Switch,
   },
 })
 

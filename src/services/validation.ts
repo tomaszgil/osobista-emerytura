@@ -162,6 +162,21 @@ export function validateCurrentSavings(
   }
 }
 
+export function validateInflationRate(
+  values: PlanFormValues
+): string | undefined {
+  const { inflationRate } = values
+  const requiredError = validateRequired(inflationRate)
+  if (requiredError) {
+    return requiredError
+  }
+
+  const numberError = validateNumber(inflationRate)
+  if (numberError) {
+    return numberError
+  }
+}
+
 export function createStepValidator<Values>(
   steps: Array<{ name: string; validation?: Function }>
 ) {

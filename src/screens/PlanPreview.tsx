@@ -25,6 +25,7 @@ import {
   validateReturnOnInvestmentDuringSaving,
   validateLifeExpectancy,
   validateCurrentSavings,
+  validateInflationRate,
   combineValidators,
 } from '../services/validation'
 import { track } from '../utils/analytics'
@@ -35,6 +36,8 @@ import MonthlyRetirementInput from './planPreview/MonthlyRetirementInput'
 import ReturnOnInvestmentDuringSavingInput from './planPreview/ReturnOnInvestmentDuringSavingInput'
 import ReturnOnInvestmentDuringRetirementInput from './planPreview/ReturnOnInvestmentDuringRetirementInput'
 import CurrentSavingsInput from './planPreview/CurrentSavingsInput'
+import InflationRateInput from './planPreview/InflationRateInput'
+import AdvancedSettingsSection from './planPreview/AdvancedSettingsSection'
 import PlanSummary from './planPreview/PlanSummary'
 import PlanAlert from './planPreview/PlanAlert'
 
@@ -52,6 +55,7 @@ const validate = combineValidators([
     validation: validateReturnOnInvestmentDuringRetirement,
   },
   { name: 'currentSavings', validation: validateCurrentSavings },
+  { name: 'inflationRate', validation: validateInflationRate },
 ])
 
 const hideForPrint = {
@@ -150,7 +154,11 @@ const PlanPreview: React.FC<{
             >
               {() => (
                 <Form>
-                  <SimpleGrid spacing={4} columns={{ base: 1, md: 2, lg: 1 }}>
+                  <SimpleGrid
+                    spacing={4}
+                    columns={{ base: 1, md: 2, lg: 1 }}
+                    mb={8}
+                  >
                     <AgeInput />
                     <RetirementAgeInput />
                     <LifeExpectancyInput />
@@ -159,6 +167,11 @@ const PlanPreview: React.FC<{
                     <ReturnOnInvestmentDuringRetirementInput />
                     <CurrentSavingsInput />
                   </SimpleGrid>
+                  <AdvancedSettingsSection>
+                    <SimpleGrid spacing={4} columns={{ base: 1, md: 2, lg: 1 }}>
+                      <InflationRateInput />
+                    </SimpleGrid>
+                  </AdvancedSettingsSection>
                 </Form>
               )}
             </Formik>
