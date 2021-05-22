@@ -125,10 +125,12 @@ const Home: React.FC = () => {
                 </Text>
                 <Alert colorScheme="purple">
                   <AlertIcon />
-                  Symulacja nie uwzględnia dwóch istotnych elementów - inflacji
-                  oraz podatku od zysków kapitałowych obowiązującego w Polsce.
-                  Dlatego warto podać oczekiwane stopy zwrotu z inwestycji jako
-                  procent ponad inflację oraz z uwzględnieniem podatku.
+                  Podstawowa symulacja nie uwzględnia dwóch istotnych elementów
+                  - inflacji oraz podatku od zysków kapitałowych obowiązującego
+                  w Polsce. Aby uwzględnić te dwa elementy, warto wybrać opcję
+                  zaawansowanej symulacji. Opcjonalnie można podać oczekiwane
+                  stopy zwrotu z inwestycji jako procent ponad inflację oraz z
+                  uwzględnieniem podatku.
                 </Alert>
               </Box>
               <Box as="article">

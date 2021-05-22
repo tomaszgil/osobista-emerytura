@@ -8,6 +8,9 @@ type PlanFormValues = {
   returnOnInvestmentDuringSaving: NumberInputValue
   returnOnInvestmentDuringRetirement: NumberInputValue
   currentSavings: NumberInputValue
+  advancedSettings: boolean
+  inflationRate: NumberInputValue
+  taxRate: NumberInputValue
 }
 
 type RetirementPlanValues = {

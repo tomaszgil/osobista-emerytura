@@ -204,5 +204,7 @@ test('allows user to fullfil the form with validation for each step', async () =
     monthlyRetirement: 2000,
     returnOnInvestmentDuringRetirement: 0.05,
     returnOnInvestmentDuringSaving: 0.05,
+    inflationRate: 0,
+    taxRate: 0,
   })
 })

@@ -25,6 +25,8 @@ import {
   validateReturnOnInvestmentDuringSaving,
   validateLifeExpectancy,
   validateCurrentSavings,
+  validateInflationRate,
+  validateTaxRate,
   combineValidators,
 } from '../services/validation'
 import { track } from '../utils/analytics'
@@ -35,6 +37,9 @@ import MonthlyRetirementInput from './planPreview/MonthlyRetirementInput'
 import ReturnOnInvestmentDuringSavingInput from './planPreview/ReturnOnInvestmentDuringSavingInput'
 import ReturnOnInvestmentDuringRetirementInput from './planPreview/ReturnOnInvestmentDuringRetirementInput'
 import CurrentSavingsInput from './planPreview/CurrentSavingsInput'
+import InflationRateInput from './planPreview/InflationRateInput'
+import TaxRateInput from './planPreview/TaxRateInput'
+import AdvancedSettingsSection from './planPreview/AdvancedSettingsSection'
 import PlanSummary from './planPreview/PlanSummary'
 import PlanAlert from './planPreview/PlanAlert'
 
@@ -52,6 +57,8 @@ const validate = combineValidators([
     validation: validateReturnOnInvestmentDuringRetirement,
   },
   { name: 'currentSavings', validation: validateCurrentSavings },
+  { name: 'inflationRate', validation: validateInflationRate },
+  { name: 'taxRate', validation: validateTaxRate },
 ])
 
 const hideForPrint = {
@@ -139,10 +146,15 @@ const PlanPreview: React.FC<{
             <Formik<PlanFormValues>
               initialValues={values}
               validateOnChange={false}
-              validate={(values) => {
-                const errors = validate(values)
+              validate={(currentValues) => {
+                if (!currentValues.advancedSettings) {
+                  currentValues.inflationRate = values.inflationRate
+                  currentValues.taxRate = values.taxRate
+                }
+
+                const errors = validate(currentValues)
                 if (Object.keys(errors).length === 0) {
-                  setValues(values)
+                  setValues(currentValues)
                 }
                 return errors
               }}
@@ -150,7 +162,11 @@ const PlanPreview: React.FC<{
             >
               {() => (
                 <Form>
-                  <SimpleGrid spacing={4} columns={{ base: 1, md: 2, lg: 1 }}>
+                  <SimpleGrid
+                    spacing={4}
+                    columns={{ base: 1, md: 2, lg: 1 }}
+                    mb={8}
+                  >
                     <AgeInput />
                     <RetirementAgeInput />
                     <LifeExpectancyInput />
@@ -159,6 +175,12 @@ const PlanPreview: React.FC<{
                     <ReturnOnInvestmentDuringRetirementInput />
                     <CurrentSavingsInput />
                   </SimpleGrid>
+                  <AdvancedSettingsSection>
+                    <SimpleGrid spacing={4} columns={{ base: 1, md: 2, lg: 1 }}>
+                      <InflationRateInput />
+                      <TaxRateInput />
+                    </SimpleGrid>
+                  </AdvancedSettingsSection>
                 </Form>
               )}
             </Formik>
