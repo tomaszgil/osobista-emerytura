@@ -146,10 +146,15 @@ const PlanPreview: React.FC<{
             <Formik<PlanFormValues>
               initialValues={values}
               validateOnChange={false}
-              validate={(values) => {
-                const errors = validate(values)
+              validate={(currentValues) => {
+                if (!currentValues.advancedSettings) {
+                  currentValues.inflationRate = values.inflationRate
+                  currentValues.taxRate = values.taxRate
+                }
+
+                const errors = validate(currentValues)
                 if (Object.keys(errors).length === 0) {
-                  setValues(values)
+                  setValues(currentValues)
                 }
                 return errors
               }}
