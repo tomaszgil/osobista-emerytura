@@ -4,3 +4,7 @@ export function formatCurrency(value: number) {
     currency: 'PLN',
   }).format(value)
 }
+
+export function formatNumber(value: string) {
+  return value.replace(',', '.')
+}

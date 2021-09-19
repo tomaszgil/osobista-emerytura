@@ -1,3 +1,5 @@
+import { formatNumber } from '../utils/format'
+
 function validateRequired(value: any) {
   if (!value) {
     return 'Pole wymagane'
@@ -5,7 +7,9 @@ function validateRequired(value: any) {
 }
 
 function validateNumber(value: any) {
-  if (Number.isNaN(Number(value))) {
+  const transformedNumber = formatNumber(value)
+
+  if (Number.isNaN(Number(transformedNumber))) {
     return 'Wymagana wartość liczbowa'
   }
 }
