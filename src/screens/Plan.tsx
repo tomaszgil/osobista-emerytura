@@ -3,6 +3,7 @@ import PlanPreview from './PlanPreview'
 import PlanForm from './PlanForm'
 import steps from './planForm/steps'
 import useLocalStorageState from '../utils/useLocalStorageState'
+import { formatNumber } from '../utils/format'
 import calculateRetirmentPlan from '../services/retirement'
 
 const initialValues = {
@@ -36,7 +37,7 @@ const PlanScreen: React.FC = () => {
         Number(values.returnOnInvestmentDuringRetirement) / 100,
       currentSavings: Number(values.currentSavings),
       inflationRate: values.advancedSettings
-        ? Number(values.inflationRate) / 100
+        ? Number(formatNumber(values.inflationRate)) / 100
         : 0,
       taxRate: values.advancedSettings ? Number(values.taxRate) / 100 : 0,
     }
