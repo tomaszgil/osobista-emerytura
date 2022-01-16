@@ -53,7 +53,6 @@ const ReturnOnInvestmentStep: React.FC<{ title: string }> = ({ title }) => {
         {options.map(({ title, value, icon }) => {
           const props = getRadioProps({
             value,
-            enterKeyHint: value,
           })
           return <RadioTile key={value} title={title} icon={icon} {...props} />
         })}

@@ -30,16 +30,18 @@ const PlanScreen: React.FC = () => {
       age: Number(values.age),
       retirementAge: Number(values.retirementAge),
       lifeExpectancy: Number(values.lifeExpectancy),
-      monthlyRetirement: Number(values.monthlyRetirement),
+      monthlyRetirement: Number(formatNumber(values.monthlyRetirement)),
       returnOnInvestmentDuringSaving:
-        Number(values.returnOnInvestmentDuringSaving) / 100,
+        Number(formatNumber(values.returnOnInvestmentDuringSaving)) / 100,
       returnOnInvestmentDuringRetirement:
-        Number(values.returnOnInvestmentDuringRetirement) / 100,
-      currentSavings: Number(values.currentSavings),
+        Number(formatNumber(values.returnOnInvestmentDuringRetirement)) / 100,
+      currentSavings: Number(formatNumber(values.currentSavings)),
       inflationRate: values.advancedSettings
         ? Number(formatNumber(values.inflationRate)) / 100
         : 0,
-      taxRate: values.advancedSettings ? Number(values.taxRate) / 100 : 0,
+      taxRate: values.advancedSettings
+        ? Number(formatNumber(values.taxRate)) / 100
+        : 0,
     }
     const plan = calculateRetirmentPlan(formValues)
 
