@@ -1,6 +1,6 @@
 # Osobista emerytura
 
-A platform allowing users to create a personalised retirement plan.
+A platform that allows users to create a personalised retirement plan.
 
 ## Live version
 
