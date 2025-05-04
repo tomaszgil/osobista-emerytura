@@ -4,7 +4,7 @@ A platform that allows users to create a personalised retirement plan.
 
 ## Live version
 
-Currently deployed using Netlify. [See live version](https://osobistaemerytura.pl).
+Currently deployed using Netlify. [See live version](https://osobista-emerytura.netlify.app/).
 
 Supported languages:
 
